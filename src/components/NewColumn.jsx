@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { closeColumnModal } from "../feature/theme/themeSlice";
+import { addColumn, closeColumnModal } from "../feature/kanban/kanbanSlice";
 import { useState } from "react";
 
 function NewColumn() {
@@ -8,12 +8,18 @@ function NewColumn() {
   const [columnName, setColumnName] = useState("");
   const dispatch = useDispatch();
 
-  console.log(activeState, data);
+  console.log(data);
 
   function handleNewColumn() {
     if (!columnName) return;
-    console.log(columnName);
+
     setColumnName("");
+    dispatch(
+      addColumn({
+        name: columnName,
+        tasks: [],
+      })
+    );
     dispatch(closeColumnModal());
   }
   return (

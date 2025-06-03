@@ -6,9 +6,8 @@ import Sidebar from "./components/Sidebar";
 import NewColumn from "./components/NewColumn";
 
 function App() {
-  const { isSidebarOpen, addColumnModal } = useSelector((state) => state.theme);
+  const { addColumnModal } = useSelector((state) => state.kanban);
 
-  console.log(addColumnModal);
   return (
     <main className="grid min-h-screen m-auto box-border grid-rows-[80px_auto]">
       <Header />

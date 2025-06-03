@@ -1,7 +1,7 @@
 import { PlusIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { newColumn } from "../feature/theme/themeSlice";
+import { newColumn } from "../feature/kanban/kanbanSlice";
 
 function Main() {
   const [index, setIndex] = useState();
@@ -15,6 +15,7 @@ function Main() {
     { name: "bg-[#49C4E5]" },
     { name: "bg-[#8471F2]" },
     { name: "bg-[#67E2AE]" },
+    { name: "bg-[#67E2AE]" },
   ];
 
   return (
@@ -26,13 +27,13 @@ function Main() {
       }`}
     >
       <section className="flex items-start w-full gap-[3rem] h-full py-3">
-        <div className="grid grid-cols-[250px_250px_250px] gap-2 ">
+        <div className="flex justify-start gap-2 ">
           {columns.map((s, i) => {
             const { name, tasks } = s;
             return (
               <article key={i} className=" px-2 py-3">
-                <div className="flex items-center gap-3">
-                  <div className="flex gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="flex justify-between items-center gap-2">
                     {
                       colors.map((s) => {
                         return (
@@ -48,7 +49,7 @@ function Main() {
                   </h3>
                 </div>
 
-                <main className="flex flex-col gap-2 py-4">
+                <main className="flex flex-col max-w-[250px]  gap-2 py-4">
                   {tasks.map((s, i) => {
                     const { title, subtasks } = s;
                     return (
@@ -84,14 +85,16 @@ function Main() {
             );
           })}
         </div>
-        <div className="bg-primary-300 h-full w-full flex items-center justify-center shadow-sm">
-          <button
-            className="flex  items-center gap-2 text-primary-600 hover:text-primary-100 font-plus-jakarta-sans font-bold text-[24px] cursor-pointer transition-all ease-linear delay-75"
-            onClick={() => dispatch(newColumn())}
-          >
-            <PlusIcon className="size-5  " /> <span> New Column</span>
-          </button>
-        </div>
+        {columns.length < 4 && (
+          <div className="bg-primary-300 h-full max-w-[250px]  flex items-center justify-center shadow-sm">
+            <button
+              className="flex  items-center gap-2 text-primary-600 hover:text-primary-100 font-plus-jakarta-sans font-bold text-[24px] cursor-pointer transition-all ease-linear delay-75"
+              onClick={() => dispatch(newColumn())}
+            >
+              <PlusIcon className="size-5  " /> <span> New Column</span>
+            </button>
+          </div>
+        )}
       </section>
     </main>
   );
