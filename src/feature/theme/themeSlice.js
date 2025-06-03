@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isDarkMode: true,
   isSidebarOpen: true,
+  addColumnModal: false,
 };
 
 const themeSlice = createSlice({
@@ -18,9 +19,21 @@ const themeSlice = createSlice({
     themeToggle: (state) => {
       state.isDarkMode = !state.isDarkMode;
     },
+    newColumn: (state) => {
+      state.addColumnModal = true;
+    },
+    closeColumnModal: (state) => {
+      state.addColumnModal = false;
+    },
   },
 });
 
-export const { closeSidebar, openSideBar, themeToggle } = themeSlice.actions;
+export const {
+  closeSidebar,
+  openSideBar,
+  themeToggle,
+  newColumn,
+  closeColumnModal,
+} = themeSlice.actions;
 
 export default themeSlice.reducer;

@@ -11,11 +11,16 @@ const kanbanSlice = createSlice({
   initialState,
   reducers: {
     changeActiveState: (state, action) => {
-      console.log(action.payload);
       state.activeState = state.data.at(action.payload).name;
+    },
+    addNewColumn: (state, action) => {
+      console.log(action);
+    },
+    editTasks: (state, action) => {
+      console.log(action);
     },
   },
 });
 
-export const { changeActiveState } = kanbanSlice.actions;
+export const { changeActiveState, editTasks } = kanbanSlice.actions;
 export default kanbanSlice.reducer;

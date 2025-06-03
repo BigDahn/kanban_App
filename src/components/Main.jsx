@@ -1,11 +1,13 @@
 import { PlusIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { newColumn } from "../feature/theme/themeSlice";
 
 function Main() {
   const [index, setIndex] = useState();
   const { isDarkMode } = useSelector((state) => state.theme);
   const { data, activeState } = useSelector((state) => state.kanban);
+  const dispatch = useDispatch();
 
   const { columns } = data.filter((s) => s.name === activeState)[0];
 
@@ -83,7 +85,10 @@ function Main() {
           })}
         </div>
         <div className="bg-primary-300 h-full w-full flex items-center justify-center shadow-sm">
-          <button className="flex  items-center gap-2 text-primary-600 hover:text-primary-100 font-plus-jakarta-sans font-bold text-[24px] cursor-pointer transition-all ease-linear delay-75">
+          <button
+            className="flex  items-center gap-2 text-primary-600 hover:text-primary-100 font-plus-jakarta-sans font-bold text-[24px] cursor-pointer transition-all ease-linear delay-75"
+            onClick={() => dispatch(newColumn())}
+          >
             <PlusIcon className="size-5  " /> <span> New Column</span>
           </button>
         </div>
