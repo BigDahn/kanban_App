@@ -1,26 +1,72 @@
-import {
-  HandRaisedIcon,
-  PlusIcon,
-  XCircleIcon,
-  XMarkIcon,
-} from "@heroicons/react/16/solid";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
+
 import { useState } from "react";
+import Select from "../ui/Select";
 
 function AddTask() {
-  const [numberSubtasks, setNumberSubtasks] = useState(2);
-  let newArray = Array.from({ length: numberSubtasks }, (s, i) => i);
+  const [subtasks, setSubTasks] = useState([
+    {
+      title: "",
+      isCompleted: false,
+    },
+    {
+      title: "",
+      isCompleted: false,
+    },
+  ]);
 
-  function increaseTasks() {
-    setNumberSubtasks((s) => s + 1);
-    console.log(numberSubtasks);
+  const [taskInfo, setTaskInfo] = useState({
+    title: "",
+    description: "",
+    status: "",
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+
+    setTaskInfo({
+      ...taskInfo,
+      [name]: value,
+    });
+  }
+
+  function addmoreSubtasks() {
+    setSubTasks([
+      ...subtasks,
+      {
+        title: "",
+        isCompleted: false,
+      },
+    ]);
+  }
+
+  function removeInput(d) {
+    setSubTasks(subtasks.filter((s, i) => i !== d));
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    const { title, description, status } = taskInfo;
+
+    const data = {
+      title: title,
+      description: description,
+      status: status,
+      subtasks: subtasks,
+    };
+
+    console.log(data);
+  }
+
+  function subTasks(e, i) {
+    const { value, name } = e.target;
+    let newSubtasks = [...subtasks];
+    newSubtasks[i][name] = value;
+    setSubTasks(newSubtasks);
   }
 
   return (
-    <div className="absolute inset-0 max-h-min flex flex-col gap-5 items-start max-w-fit px-[1.3rem] py-4  m-auto rounded-md bg-primary-500">
+    <div className="absolute inset-0 max-h-min flex flex-col gap-2 items-start max-w-fit px-[1.3rem] py-4  m-auto rounded-md bg-primary-500">
       <div className="flex items-center justify-between w-full ">
         <h3 className="text-[15px] font-plus-jakarta-sans font-bold text-primary-600">
           Add New Task
@@ -28,10 +74,10 @@ function AddTask() {
         <XMarkIcon
           className="size-4 text-primary-600 hover:text-primary-100"
           role="button"
-          // onClick={() => dispatch(closeColumnModal())}
+          //nClick={() => dispatch(closeColumnModal())}
         />
       </div>
-      <form className="flex flex-col  gap-2" onSubmit={(e) => handleSubmit(e)}>
+      <form className="flex flex-col  gap-3" onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col gap-2">
           <label
             htmlFor="title"
@@ -40,47 +86,70 @@ function AddTask() {
             Title
           </label>
           <input
+            id="title"
             name="title"
             type="text"
+            onChange={handleChange}
             className="bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[2rem] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label
-            htmlFor="Description"
+            htmlFor="description"
             className="text-[15px] font-plus-jakarta-sans font-medium text-white"
           >
             Description
           </label>
           <textarea
-            name="Description"
+            id="description"
+            name="description"
             type="text"
+            onChange={handleChange}
             placeholder="e.g. It’s always good to take a break.This 15 minute break will recharge the batteries a little."
             className="bg-transparent border-1 border-gray-400 text-[12px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label
-            htmlFor="subtasks"
+            htmlFor="title"
             className="text-[15px] font-plus-jakarta-sans font-medium text-white"
           >
             Subtasks
           </label>
-          {newArray.map((s, i) => {
+          {subtasks.map((s, i) => {
             return (
-              <div key={i}>
-                <input className="bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[2rem] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer" />
-                <button>x</button>
+              <div
+                key={i}
+                className="w-[20rem] flex items-center justify-start"
+              >
+                <input
+                  onChange={(e) => subTasks(e, i)}
+                  name="title"
+                  placeholder="e.g tasks that should be done "
+                  className="bg-transparent border-1 border-gray-400 outline-none w-full  h-[2rem] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer placeholder:text-[12px]"
+                />
+                <button onClick={() => removeInput(i)}>
+                  <XMarkIcon className="size-6 text-gray-600" />
+                </button>
               </div>
             );
           })}{" "}
           <button
-            className="bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-bold font-plus-jakarta-sans"
-            onClick={() => increaseTasks()}
+            className="bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-medium font-plus-jakarta-sans"
+            onClick={() => addmoreSubtasks()}
           >
             <PlusIcon className="size-4" /> Add New Subtask
           </button>
         </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-[13px] font-plus-jakarta-sans font-medium text-white">
+            status
+          </label>
+          <Select onChange={handleChange} />
+        </div>
+        <button className="bg-primary-100 text-white rounded-full text-[13px] font-plus-jakarta-sans font-medium py-2">
+          Create Task
+        </button>
       </form>
     </div>
   );
