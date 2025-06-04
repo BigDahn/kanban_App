@@ -5,6 +5,7 @@ const initialState = {
   data: boards,
   activeState: boards.at(0).name,
   addColumnModal: false,
+  addNewTask: false,
 };
 
 const kanbanSlice = createSlice({
@@ -38,6 +39,9 @@ const kanbanSlice = createSlice({
         return s;
       });
     },
+    addNewTaskBtn: (state, action) => {
+      state.addNewTask = true;
+    },
   },
 });
 
@@ -47,5 +51,6 @@ export const {
   newColumn,
   closeColumnModal,
   addColumn,
+  addNewTaskBtn,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;

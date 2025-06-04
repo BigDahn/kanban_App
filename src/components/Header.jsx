@@ -1,8 +1,11 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewTaskBtn } from "../feature/kanban/kanbanSlice";
 
 function Header() {
   const { isDarkMode } = useSelector((state) => state.theme);
   const { activeState } = useSelector((state) => state.kanban);
+
+  const dispatch = useDispatch();
   return (
     <div
       className={`${
@@ -44,7 +47,10 @@ function Header() {
       </div>
 
       <div className="flex items-center gap-3">
-        <button className="rounded-full px-2 py-2 bg-primary-100 text-white font-plus-jakarta-sans text-[12px] font-bold">
+        <button
+          className="rounded-full px-2 py-2 bg-primary-100 text-white font-plus-jakarta-sans text-[12px] font-bold"
+          onClick={() => dispatch(addNewTaskBtn())}
+        >
           <h2> +AddNew Task </h2>
         </button>
         <img src="/assets/icon-vertical-ellipsis.svg" />
@@ -54,20 +60,3 @@ function Header() {
 }
 
 export default Header;
-/* <div className="flex justify-center gap-8 h-full items-center">
-        {!isSidebarOpen && (
-          <div className="border-r h-full justify-center border-primary-500 items-center flex gap-3">
-            <img src="/assets/logo-light.svg" className="ml-2 mr-3" />
-          </div>
-        )}
-        <h2 className="font-plus-jakarta-sans text-white font-bold text-[22px]">
-          Platform Launch
-        </h2>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <button className="rounded-full px-2 py-2 bg-primary-100 text-white font-plus-jakarta-sans text-[12px] font-bold">
-          <h2> +AddNew Task </h2>
-        </button>
-        <img src="/assets/icon-vertical-ellipsis.svg" />
-      </div>*/

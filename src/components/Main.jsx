@@ -26,14 +26,14 @@ function Main() {
           : "bg-secondary-100 px-6 font-plus-jakarta-sans "
       }`}
     >
-      <section className="flex items-start w-full gap-[3rem] h-full py-3">
-        <div className="flex justify-start gap-2 ">
+      <section className="flex items-start  justify-between w-full gap-[3rem] h-full py-3">
+        <div className="flex w-[70%]  gap-2 ">
           {columns.map((s, i) => {
             const { name, tasks } = s;
             return (
               <article key={i} className=" px-2 py-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex justify-between items-center gap-2">
+                  <div className="flex justify-between items-center gap-4">
                     {
                       colors.map((s) => {
                         return (
@@ -49,7 +49,7 @@ function Main() {
                   </h3>
                 </div>
 
-                <main className="flex flex-col max-w-[250px]  gap-2 py-4">
+                <main className="flex flex-col max-w-[250px] gap-2 py-4">
                   {tasks.map((s, i) => {
                     const { title, subtasks } = s;
                     return (
