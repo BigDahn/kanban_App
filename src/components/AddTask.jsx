@@ -2,8 +2,11 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
 
 import { useState } from "react";
 import Select from "../ui/Select";
+import { useDispatch } from "react-redux";
+import { closeAddNewTaskModal } from "../feature/kanban/kanbanSlice";
 
 function AddTask() {
+  const dispatch = useDispatch();
   const [subtasks, setSubTasks] = useState([
     {
       title: "",
@@ -29,7 +32,7 @@ function AddTask() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-
+    setError({});
     setTaskInfo({
       ...taskInfo,
       [name]: value,
@@ -53,7 +56,7 @@ function AddTask() {
   function handleSubmit(e) {
     e.preventDefault();
     const { title, description, status } = taskInfo;
-    if (!subtasks || !title || !description || !status) {
+    if (!subtasks || title === "" || description === "" || status === "") {
       setError({
         isError: true,
         msg: "This field required",
@@ -63,20 +66,23 @@ function AddTask() {
         },
       });
     }
-
     const data = {
       title: title,
       description: description,
       status: status,
       subtasks: subtasks,
     };
-
-    if (!error) {
+    if (subtasks && title && description && status) {
+      setError({
+        isError: false,
+        msg: "",
+        field: {},
+      });
       console.log(data);
+      dispatch(closeAddNewTaskModal());
     }
   }
 
-  // console.log(error.field.subtasks[0]);
   function subTasks(e, i) {
     const { value, name } = e.target;
 
@@ -92,9 +98,9 @@ function AddTask() {
           Add New Task
         </h3>
         <XMarkIcon
-          className="size-4 text-primary-600 hover:text-primary-100"
+          className="size-4 text-primary-600 hover:text-primary-100 cursor-pointer"
           role="button"
-          //nClick={() => dispatch(closeColumnModal())}
+          onClick={() => dispatch(closeAddNewTaskModal())}
         />
       </div>
       <form className="flex flex-col  gap-3" onSubmit={(e) => handleSubmit(e)}>
@@ -174,7 +180,7 @@ function AddTask() {
                 <button onClick={() => removeInput(i)}>
                   <XMarkIcon className="size-6 text-gray-600 hover:text-secondary-400 cursor-pointer" />
                 </button>
-                {error?.field.subtasks && (
+                {error?.field?.subtasks && (
                   <p className="text-[6.6px] text-secondary-400 font-plus-jakarta-sans absolute top-5 left-[14.7rem]">
                     {error.msg}
                   </p>
@@ -198,7 +204,10 @@ function AddTask() {
             error={error?.field?.taskInfo?.status}
           />
         </div>
-        <button className="bg-primary-100 text-white rounded-full text-[13px] font-plus-jakarta-sans font-medium py-2 disabled:cursor-not-allowed disabled:bg-primary-600">
+        <button
+          disabled={error.isError}
+          className="bg-primary-100 text-white rounded-full text-[13px] font-plus-jakarta-sans font-medium py-2 disabled:cursor-not-allowed disabled:bg-primary-600"
+        >
           Create Task
         </button>
       </form>

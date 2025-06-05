@@ -42,6 +42,9 @@ const kanbanSlice = createSlice({
     addNewTaskBtn: (state, action) => {
       state.addNewTask = true;
     },
+    closeAddNewTaskModal: (state, action) => {
+      state.addNewTask = false;
+    },
   },
 });
 
@@ -52,5 +55,6 @@ export const {
   closeColumnModal,
   addColumn,
   addNewTaskBtn,
+  closeAddNewTaskModal,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
