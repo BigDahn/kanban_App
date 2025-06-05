@@ -1,7 +1,7 @@
 import { PlusIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { newColumn } from "../feature/kanban/kanbanSlice";
+import { newColumn, openEditTaskModal } from "../feature/kanban/kanbanSlice";
 
 function Main() {
   const [index, setIndex] = useState();
@@ -58,6 +58,9 @@ function Main() {
                         onMouseOver={() => setIndex(title)}
                         onMouseLeave={() => setIndex("")}
                         key={i}
+                        onClick={() =>
+                          dispatch(openEditTaskModal({ name, title }))
+                        }
                       >
                         <main className="flex flex-col gap-[0.2rem]">
                           <h3
