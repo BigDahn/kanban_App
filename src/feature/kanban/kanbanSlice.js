@@ -60,12 +60,48 @@ const kanbanSlice = createSlice({
     },
     closeEditTaskModal: (state, action) => {
       state.editTaskModal = false;
+      state.isEdit = false;
+      state.sideTaskModal = false;
     },
     openSideTaskModal: (state) => {
       state.sideTaskModal = true;
     },
     editTaskOn: (state) => {
       state.isEdit = true;
+      state.sideTaskModal = false;
+    },
+    EditUpdate: (state, action) => {
+      console.log(action.payload);
+      state.editTaskModal = false;
+      state.isEdit = false;
+      state.sideTaskModal = false;
+      const data = state.data.map((s) => {
+        if (s.name === state.activeState) {
+          return {
+            ...s,
+            columns: s.columns.map((s) => {
+              if (s.name === action.payload.status) {
+                return {
+                  ...s,
+                  tasks: s.tasks.map((s) => {
+                    if (s.title === action.payload.title) {
+                      return {
+                        ...s,
+                        status: action.payload.status,
+                        subtasks: action.payload.subtasks,
+                      };
+                    }
+                    return s;
+                  }),
+                };
+              }
+              return s;
+            }),
+          };
+        }
+        return s;
+      });
+      state.data = data;
     },
   },
 });
@@ -82,6 +118,7 @@ export const {
   openEditTaskModal,
   closeEditTaskModal,
   editTaskOn,
+  EditUpdate,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
 

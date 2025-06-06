@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeEditTaskModal,
+  EditUpdate,
   openSideTaskModal,
 } from "../feature/kanban/kanbanSlice";
 import SmallSideModal from "./SmallSideModal";
@@ -11,6 +12,8 @@ function EditTaskModal() {
   const { data, activeState, editTask, isEdit } = useSelector(
     (state) => state.kanban
   );
+
+  console.log(data);
   const { title, description, status, subtasks } = editTask;
   const [index, setIndex] = useState({
     isTrue: false,
@@ -40,7 +43,6 @@ function EditTaskModal() {
       stat: true,
       option: value,
     });
-    console.log(value);
   }
 
   function handleChange(index) {
@@ -59,8 +61,7 @@ function EditTaskModal() {
     });
     setSubtask(data);
   }
-  console.log(index);
-  console.log(statusChange.stat);
+
   function handleSubmit(e) {
     e.preventDefault();
     const data = {
@@ -69,11 +70,9 @@ function EditTaskModal() {
       status: statusChange.option,
       subtasks: subtask,
     };
-
-    console.log(data);
+    dispatch(EditUpdate(data));
   }
 
-  console.log(editTask);
   return (
     <div className="fixed inset-0  flex items-center justify-center w-screen h-screen m-auto rounded-md z-50 bg-primary-400/52">
       <form
@@ -108,7 +107,7 @@ function EditTaskModal() {
             <div className="flex flex-col text-[11px] font-plus-jakarta-sans  gap-2">
               {subtask?.map((s, i) => {
                 const { isCompleted, title } = s;
-                console.log(s);
+
                 return (
                   <div
                     key={i}
@@ -160,21 +159,14 @@ function EditTaskModal() {
                 ))}
             </select>
           </div>
-          {index.isTrue || statusChange.stat ? (
-            <button
-              className="bg-primary-100 text-white font-plus-jakarta-sans font-medium text-[13px] py-1.5 rounded-full"
-              onClick={handleSubmit}
-            >
-              Edit and Update
-            </button>
-          ) : (
-            <button
-              onClick={() => dispatch(closeEditTaskModal())}
-              className="bg-secondary-400 text-white font-plus-jakarta-sans font-medium text-[13px] py-1.5 rounded-full"
-            >
-              Exit
-            </button>
-          )}
+
+          <button
+            className="bg-primary-100 text-white font-plus-jakarta-sans font-medium text-[13px] py-1.5 rounded-full disabled:bg-primary-600"
+            onClick={handleSubmit}
+            disabled={!isEdit}
+          >
+            Edit and Update
+          </button>
         </section>
       </form>
     </div>
