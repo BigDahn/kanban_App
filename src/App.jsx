@@ -6,11 +6,12 @@ import Sidebar from "./components/Sidebar";
 import NewColumn from "./components/NewColumn";
 import AddTask from "./components/AddTask";
 import EditTaskModal from "./components/EditTaskModal";
+import { openSideTaskModal } from "./feature/kanban/kanbanSlice";
+import SmallSideModal from "./components/SmallSideModal";
 
 function App() {
-  const { addColumnModal, addNewTask, editTaskModal } = useSelector(
-    (state) => state.kanban
-  );
+  const { sideTaskModal, addColumnModal, addNewTask, editTaskModal } =
+    useSelector((state) => state.kanban);
 
   return (
     <main className="grid min-h-screen m-auto box-border grid-rows-[80px_auto] ">
@@ -21,6 +22,7 @@ function App() {
         {addColumnModal && <NewColumn />}
         {addNewTask && <AddTask />}
         {editTaskModal && <EditTaskModal />}
+        {sideTaskModal && <SmallSideModal />}
       </Container>
     </main>
   );

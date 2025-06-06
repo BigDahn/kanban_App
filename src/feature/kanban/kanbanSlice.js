@@ -9,6 +9,8 @@ const initialState = {
   editTaskModal: false,
   editTaskInfo: [],
   editTask: [],
+  sideTaskModal: false,
+  isEdit: false,
 };
 
 const kanbanSlice = createSlice({
@@ -56,18 +58,30 @@ const kanbanSlice = createSlice({
         .columns.filter((s) => s.name === action.payload.name)[0]
         .tasks.filter((s) => s.title === action.payload.title)[0];
     },
+    closeEditTaskModal: (state, action) => {
+      state.editTaskModal = false;
+    },
+    openSideTaskModal: (state) => {
+      state.sideTaskModal = true;
+    },
+    editTaskOn: (state) => {
+      state.isEdit = true;
+    },
   },
 });
 
 export const {
   changeActiveState,
   editTasks,
+  openSideTaskModal,
   newColumn,
   closeColumnModal,
   addColumn,
   addNewTaskBtn,
   closeAddNewTaskModal,
   openEditTaskModal,
+  closeEditTaskModal,
+  editTaskOn,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
 

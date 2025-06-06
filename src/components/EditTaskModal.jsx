@@ -1,16 +1,27 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  closeEditTaskModal,
+  openSideTaskModal,
+} from "../feature/kanban/kanbanSlice";
+import SmallSideModal from "./SmallSideModal";
 
 function EditTaskModal() {
-  const { editTaskInfo, data, activeState, editTask } = useSelector(
+  const { data, activeState, editTask, isEdit } = useSelector(
     (state) => state.kanban
   );
   const { title, description, status, subtasks } = editTask;
-
+  const [index, setIndex] = useState({
+    isTrue: false,
+    value: "",
+  });
   const [subtask, setSubtask] = useState(subtasks);
-
-  const [isEdit, setIsEdit] = useState(false);
+  const [statusChange, setStatusChange] = useState({
+    stat: false,
+    option: status,
+  });
+  const dispatch = useDispatch();
 
   //  const { title, name } = editTaskInfo;
   /*
@@ -23,10 +34,20 @@ function EditTaskModal() {
       .map((s) => s)[0].subtasks
   ); */
 
+  function handleSelect(e) {
+    const { value } = e.target;
+    setStatusChange({
+      stat: true,
+      option: value,
+    });
+    console.log(value);
+  }
+
   function handleChange(index) {
-    if (index) {
-      setIsEdit(true);
-    }
+    setIndex({
+      isTrue: true,
+      value: index,
+    });
     const data = subtask.map((s, i) => {
       if (i === index) {
         return {
@@ -37,20 +58,38 @@ function EditTaskModal() {
       return s;
     });
     setSubtask(data);
+  }
+  console.log(index);
+  console.log(statusChange.stat);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const data = {
+      title: title,
+      description: description,
+      status: statusChange.option,
+      subtasks: subtask,
+    };
+
     console.log(data);
   }
-  // console.log(editTask);
 
+  console.log(editTask);
   return (
-    <div className="fixed inset-0  flex items-center justify-center w- h-screen m-auto rounded-md z-50 bg-primary-400/52">
-      <div className=" flex flex-col gap-[3rem] items-start px-3 py-4 max-w-[25rem] min-h-fit m-auto rounded-md z-50 bg-primary-400 shadow-lg shadow-primary-300">
+    <div className="fixed inset-0  flex items-center justify-center w-screen h-screen m-auto rounded-md z-50 bg-primary-400/52">
+      <form
+        onSubmit={handleSubmit}
+        className=" flex flex-col gap-[3rem] items-start px-3 py-4 w-[25rem] min-h-fit m-auto rounded-md z-50 bg-primary-400 shadow-lg shadow-primary-300"
+      >
         <section key={title} className="flex flex-col gap-[2rem] w-full">
           <div className="flex flex-col gap-2">
             <div className="flex w-full gap-4  items-center justify-between">
-              <h3 className="text-white text-[18px] font-plus-jakarta-sans font-bold ">
+              <h3 className="text-white text-[18px] max-w-[20rem] font-plus-jakarta-sans font-bold ">
                 {title}
               </h3>
-              <EllipsisVerticalIcon className="size-6 text-primary-600 hover:text-primary-100" />
+              <EllipsisVerticalIcon
+                onClick={() => dispatch(openSideTaskModal())}
+                className="size-6 text-primary-600 hover:text-primary-100"
+              />
             </div>
             {description && (
               <div>
@@ -81,6 +120,7 @@ function EditTaskModal() {
                   >
                     <input
                       type="checkbox"
+                      disabled={!isEdit}
                       checked={isCompleted}
                       //disabled={isEdit}
                       onChange={() => handleChange(i)}
@@ -98,7 +138,11 @@ function EditTaskModal() {
             <label className="text-[12px] font-plus-jakarta-sans font-medium text-primary-600">
               Current Status
             </label>
-            <select className="border-primary-600 border-1 rounded-sm h-[2rem] px-1 bg-primary-300 hover:border-primary-100  text-[12px] font-plus-jakarta-sans font-medium text-white outline-none">
+            <select
+              onChange={handleSelect}
+              disabled={!isEdit}
+              className="border-primary-600 border-1 rounded-sm h-[2rem] px-1 bg-primary-300 hover:border-primary-100  text-[12px] font-plus-jakarta-sans font-medium text-white outline-none"
+            >
               <option className="text-white font-plus-jakarta-sans font-medium">
                 {status}
               </option>
@@ -116,17 +160,23 @@ function EditTaskModal() {
                 ))}
             </select>
           </div>
-          {isEdit ? (
-            <button className="bg-primary-100 text-white font-plus-jakarta-sans font-medium text-[13px] py-1.5 rounded-full">
+          {index.isTrue || statusChange.stat ? (
+            <button
+              className="bg-primary-100 text-white font-plus-jakarta-sans font-medium text-[13px] py-1.5 rounded-full"
+              onClick={handleSubmit}
+            >
               Edit and Update
             </button>
           ) : (
-            <button className="bg-secondary-400 text-white font-plus-jakarta-sans font-medium text-[13px] py-1.5 rounded-full">
+            <button
+              onClick={() => dispatch(closeEditTaskModal())}
+              className="bg-secondary-400 text-white font-plus-jakarta-sans font-medium text-[13px] py-1.5 rounded-full"
+            >
               Exit
             </button>
           )}
         </section>
-      </div>
+      </form>
     </div>
   );
 }
