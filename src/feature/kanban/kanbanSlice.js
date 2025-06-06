@@ -79,24 +79,27 @@ const kanbanSlice = createSlice({
         if (s.name === state.activeState) {
           return {
             ...s,
-            columns: s.columns.map((s) => {
-              if (s.name === action.payload.status) {
-                return {
-                  ...s,
-                  tasks: s.tasks.map((s) => {
-                    if (s.title === action.payload.title) {
-                      return {
-                        ...s,
-                        status: action.payload.status,
-                        subtasks: action.payload.subtasks,
-                      };
-                    }
-                    return s;
-                  }),
-                };
-              }
-              return s;
-            }),
+            columns: s.columns
+              .map((s) => {
+                if (s.name === action.payload.status) {
+                  return {
+                    ...s,
+                    tasks: [...s.tasks, action.payload],
+                  };
+                }
+                return s;
+              })
+              .map((s) => {
+                if (s.name === state.editTaskInfo.name) {
+                  return {
+                    ...s,
+                    tasks: s.tasks.filter(
+                      (s) => s.title !== action.payload.title
+                    ),
+                  };
+                }
+                return s;
+              }),
           };
         }
         return s;
