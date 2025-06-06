@@ -8,6 +8,7 @@ const initialState = {
   addNewTask: false,
   editTaskModal: false,
   editTaskInfo: [],
+  editTask: [],
 };
 
 const kanbanSlice = createSlice({
@@ -49,8 +50,11 @@ const kanbanSlice = createSlice({
     },
     openEditTaskModal: (state, action) => {
       state.editTaskModal = true;
-      console.log(action);
       state.editTaskInfo = action.payload;
+      state.editTask = state.data
+        .filter((s) => s.name === state.activeState)[0]
+        .columns.filter((s) => s.name === action.payload.name)[0]
+        .tasks.filter((s) => s.title === action.payload.title)[0];
     },
   },
 });
@@ -66,3 +70,7 @@ export const {
   openEditTaskModal,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
+
+/* state.data
+        .filter((s) => s.name === state.activeState)[0]
+        .columns */

@@ -11,7 +11,7 @@ function Sidebar() {
     <div
       className={`${
         isDarkMode
-          ? "flex flex-col h-full justify-between py-5 bg-primary-400  border-r border-primary-500"
+          ? "flex flex-col h-full justify-between py-5 bg-primary-400   border-r border-primary-500"
           : "flex flex-col h-full justify-between py-5 bg-white  border-r border-secondary-50"
       }`}
     >

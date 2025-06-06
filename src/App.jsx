@@ -11,9 +11,9 @@ function App() {
   const { addColumnModal, addNewTask, editTaskModal } = useSelector(
     (state) => state.kanban
   );
-  console.log(editTaskModal);
+
   return (
-    <main className="grid min-h-screen m-auto box-border grid-rows-[80px_auto]">
+    <main className="grid min-h-screen m-auto box-border grid-rows-[80px_auto] ">
       <Header />
       <Container>
         <Sidebar />
