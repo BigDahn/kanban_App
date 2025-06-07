@@ -1,11 +1,7 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  closeEditTaskModal,
-  EditUpdate,
-  openSideTaskModal,
-} from "../feature/kanban/kanbanSlice";
+import { EditUpdate, openSideTaskModal } from "../feature/kanban/kanbanSlice";
 import SmallSideModal from "./SmallSideModal";
 
 function EditTaskModal() {
@@ -15,6 +11,8 @@ function EditTaskModal() {
 
   console.log(data);
   const { title, description, status, subtasks } = editTask;
+
+  console.log(status);
   const [index, setIndex] = useState({
     isTrue: false,
     value: "",

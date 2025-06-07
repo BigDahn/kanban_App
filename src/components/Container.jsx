@@ -7,8 +7,8 @@ function Container({ children }) {
     <div
       className={`${
         isSidebarOpen
-          ? "transition-all  ease-linear delay-50 grid grid-cols-[240px_1fr] "
-          : " grid grid-cols-[240px_1fr] transition-all ml-[-240px] ease-linear delay-50  "
+          ? "transition-all  ease-linear delay-50 grid grid-cols-[240px_auto] overflow-hidden"
+          : " grid grid-cols-[240px_1fr]   overflow-hidden transition-all ml-[-240px] ease-linear delay-50  "
       }`}
     >
       {children}

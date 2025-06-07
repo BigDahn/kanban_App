@@ -15,19 +15,22 @@ function Main() {
     { name: "bg-[#49C4E5]" },
     { name: "bg-[#8471F2]" },
     { name: "bg-[#67E2AE]" },
+    { name: "bg-[#49C4E5]" },
     { name: "bg-[#67E2AE]" },
+    { name: "bg-[#49C4E5]" },
+    { name: "bg-[#8471F2]" },
   ];
 
   return (
     <main
       className={`${
         isDarkMode
-          ? "bg-primary-300 px-6 font-plus-jakarta-sans  "
+          ? "bg-primary-300 px-6 font-plus-jakarta-sans  w-screen overflow-x-scroll overflow-y-hidden "
           : "bg-secondary-100 px-6 font-plus-jakarta-sans "
       }`}
     >
-      <section className="flex items-start  justify-between w-full gap-[3rem] h-full py-3">
-        <div className="flex w-[70%]  gap-2 ">
+      <section className="flex  gap-[1rem] h-full py-3">
+        <div className="flex gap-2  ">
           {columns.map((s, i) => {
             const { name, tasks } = s;
             return (
@@ -49,7 +52,7 @@ function Main() {
                   </h3>
                 </div>
 
-                <main className="flex flex-col max-w-[250px] gap-2 py-4">
+                <main className="flex flex-col  w-[250px] gap-2 py-4">
                   {tasks.map((s, i) => {
                     const { title, subtasks } = s;
                     return (
@@ -89,16 +92,15 @@ function Main() {
             );
           })}
         </div>
-        {columns.length < 4 && (
-          <div className="bg-primary-300 h-full max-w-[250px]  flex items-center justify-center shadow-sm">
-            <button
-              className="flex  items-center gap-2 text-primary-600 hover:text-primary-100 font-plus-jakarta-sans font-bold text-[24px] cursor-pointer transition-all ease-linear delay-75"
-              onClick={() => dispatch(newColumn())}
-            >
-              <PlusIcon className="size-5  " /> <span> New Column</span>
-            </button>
-          </div>
-        )}
+
+        <div className="bg-primary-300 h-full w-[250px]  flex items-center justify-center shadow-sm">
+          <button
+            className="flex  items-center gap-2 text-primary-600 hover:text-primary-100 font-plus-jakarta-sans font-bold text-[24px] cursor-pointer transition-all ease-linear delay-75"
+            onClick={() => dispatch(newColumn())}
+          >
+            <PlusIcon className="size-5  " /> <span> New Column</span>
+          </button>
+        </div>
       </section>
     </main>
   );

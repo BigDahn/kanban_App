@@ -14,7 +14,7 @@ function App() {
     useSelector((state) => state.kanban);
 
   return (
-    <main className="grid min-h-screen m-auto box-border grid-rows-[80px_auto] ">
+    <main className="grid h-screen  m-auto box-border grid-rows-[80px_auto] overflow-hidden ">
       <Header />
       <Container>
         <Sidebar />
