@@ -3,7 +3,10 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import Select from "../ui/Select";
 import { useDispatch } from "react-redux";
-import { closeAddNewTaskModal } from "../feature/kanban/kanbanSlice";
+import {
+  addNewTask,
+  closeAddNewTaskModal,
+} from "../feature/kanban/kanbanSlice";
 
 function AddTask() {
   const dispatch = useDispatch();
@@ -78,7 +81,7 @@ function AddTask() {
         msg: "",
         field: {},
       });
-      console.log(data);
+      dispatch(addNewTask(data));
       dispatch(closeAddNewTaskModal());
     }
   }

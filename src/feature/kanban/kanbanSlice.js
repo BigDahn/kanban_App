@@ -106,6 +106,27 @@ const kanbanSlice = createSlice({
       });
       state.data = data;
     },
+    addNewTask: (state, action) => {
+      console.log(action.payload);
+      const data = state.data.map((s) => {
+        if (s.name === state.activeState) {
+          return {
+            ...s,
+            columns: s.columns.map((s) => {
+              if (s.name === action.payload.status) {
+                return {
+                  ...s,
+                  tasks: [...s.tasks, action.payload],
+                };
+              }
+              return s;
+            }),
+          };
+        }
+        return s;
+      });
+      state.data = data;
+    },
   },
 });
 
@@ -122,6 +143,7 @@ export const {
   closeEditTaskModal,
   editTaskOn,
   EditUpdate,
+  addNewTask,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
 
