@@ -25,7 +25,7 @@ function Main() {
     <main
       className={`${
         isDarkMode
-          ? "bg-primary-300 px-6 font-plus-jakarta-sans  w-screen overflow-x-scroll overflow-y-hidden "
+          ? "bg-primary-300 px-6 font-plus-jakarta-sans  w-screen "
           : "bg-secondary-100 px-6 font-plus-jakarta-sans "
       }`}
     >
@@ -107,3 +107,5 @@ function Main() {
 }
 
 export default Main;
+
+// overflow-x-scroll overflow-y-hidden

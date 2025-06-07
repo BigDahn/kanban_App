@@ -11,6 +11,7 @@ const initialState = {
   editTask: [],
   sideTaskModal: false,
   isEdit: false,
+  falseData: [],
 };
 
 const kanbanSlice = createSlice({
@@ -71,40 +72,67 @@ const kanbanSlice = createSlice({
       state.sideTaskModal = false;
     },
     EditUpdate: (state, action) => {
-      console.log(action.payload);
       state.editTaskModal = false;
       state.isEdit = false;
       state.sideTaskModal = false;
-      const data = state.data.map((s) => {
-        if (s.name === state.activeState) {
-          return {
-            ...s,
-            columns: s.columns
-              .map((s) => {
-                if (s.name === action.payload.status) {
+      const data = state.data
+        .map((s) => {
+          if (s.name === state.activeState) {
+            return {
+              ...s,
+              columns: s.columns.map((s) => {
+                if (
+                  s.name === action.payload.status &&
+                  state.editTask.status !== action.payload.status
+                ) {
                   return {
                     ...s,
                     tasks: [...s.tasks, action.payload],
                   };
+                } else if (
+                  s.name === action.payload.status &&
+                  state.editTask.status === action.payload.status
+                ) {
+                  return {
+                    ...s,
+                    tasks: s.tasks.map((s) => {
+                      if (s.title === action.payload.title) {
+                        return action.payload;
+                      }
+                      return s;
+                    }),
+                  };
                 }
                 return s;
-              })
-              .map((s) => {
-                if (s.name === state.editTaskInfo.name) {
+              }),
+            };
+          }
+          return s;
+        })
+        .map((s) => {
+          if (s.name === state.activeState) {
+            return {
+              ...s,
+              columns: s.columns.map((s) => {
+                if (
+                  s.name === state.editTask.status &&
+                  state.editTask.status !== action.payload.status
+                ) {
                   return {
                     ...s,
                     tasks: s.tasks.filter(
-                      (s) => s.title !== action.payload.title
+                      (s) => s.title !== state.editTask.title
                     ),
                   };
                 }
                 return s;
               }),
-          };
-        }
-        return s;
-      });
+            };
+          }
+          return s;
+        });
       state.data = data;
+      state.falseData = data;
     },
     addNewTask: (state, action) => {
       console.log(action.payload);

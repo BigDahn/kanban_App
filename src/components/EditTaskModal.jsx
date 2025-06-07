@@ -9,10 +9,8 @@ function EditTaskModal() {
     (state) => state.kanban
   );
 
-  console.log(data);
   const { title, description, status, subtasks } = editTask;
 
-  console.log(status);
   const [index, setIndex] = useState({
     isTrue: false,
     value: "",
@@ -24,7 +22,6 @@ function EditTaskModal() {
   });
   const dispatch = useDispatch();
 
-  //  const { title, name } = editTaskInfo;
   /*
   const [index, setIndex] = useState();
    const [edit, setEdit] = useState(
@@ -68,6 +65,7 @@ function EditTaskModal() {
       status: statusChange.option,
       subtasks: subtask,
     };
+
     dispatch(EditUpdate(data));
   }
 
