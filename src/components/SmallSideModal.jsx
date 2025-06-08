@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { closeEditTaskModal, editTaskOn } from "../feature/kanban/kanbanSlice";
+import {
+  closeEditTaskModal,
+  editTaskOn,
+  isDeleteTaskBtn,
+} from "../feature/kanban/kanbanSlice";
 
 function SmallSideModal() {
   const dispatch = useDispatch();
@@ -14,7 +18,12 @@ function SmallSideModal() {
           >
             Edit Task
           </h3>
-          <h3 className="text-secondary-400">Delete Task</h3>
+          <h3
+            className="text-secondary-400 cursor-pointer"
+            onClick={() => dispatch(isDeleteTaskBtn())}
+          >
+            Delete Task
+          </h3>
           <h3
             onClick={() => dispatch(closeEditTaskModal())}
             className="text-primary-600 cursor-pointer hover:text-primary-100"

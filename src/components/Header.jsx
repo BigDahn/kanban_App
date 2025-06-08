@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addNewTaskBtn } from "../feature/kanban/kanbanSlice";
+import { addNewTaskBtn, openHeaderModal } from "../feature/kanban/kanbanSlice";
+import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 
 function Header() {
   const { isDarkMode } = useSelector((state) => state.theme);
@@ -48,12 +49,15 @@ function Header() {
 
       <div className="flex items-center gap-3">
         <button
-          className="rounded-full px-2 py-2 bg-primary-100 text-white font-plus-jakarta-sans text-[12px] font-bold"
+          className="rounded-full w-[125px] h-[38px] bg-primary-100 text-white font-plus-jakarta-sans text-[12px] font-bold cursor-pointer "
           onClick={() => dispatch(addNewTaskBtn())}
         >
           <h2> +AddNew Task </h2>
         </button>
-        <img src="/assets/icon-vertical-ellipsis.svg" />
+        <EllipsisVerticalIcon
+          className="size-6 text-primary-600 hover:text-primary-100 cursor-pointer"
+          onClick={() => dispatch(openHeaderModal())}
+        />
       </div>
     </div>
   );

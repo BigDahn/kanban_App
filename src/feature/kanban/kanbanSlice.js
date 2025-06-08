@@ -12,6 +12,9 @@ const initialState = {
   sideTaskModal: false,
   isEdit: false,
   falseData: [],
+  isDeleteBoard: false,
+  isDeleteTask: false,
+  isHeaderModalOpen: false,
 };
 
 const kanbanSlice = createSlice({
@@ -83,7 +86,7 @@ const kanbanSlice = createSlice({
               columns: s.columns.map((s) => {
                 if (
                   s.name === action.payload.status &&
-                  state.editTask.status !== action.payload.status
+                  state.editTaskInfo.name !== action.payload.status
                 ) {
                   return {
                     ...s,
@@ -91,7 +94,7 @@ const kanbanSlice = createSlice({
                   };
                 } else if (
                   s.name === action.payload.status &&
-                  state.editTask.status === action.payload.status
+                  state.editTaskInfo.name === action.payload.status
                 ) {
                   return {
                     ...s,
@@ -116,7 +119,7 @@ const kanbanSlice = createSlice({
               columns: s.columns.map((s) => {
                 if (
                   s.name === state.editTask.status &&
-                  state.editTask.status !== action.payload.status
+                  state.editTaskInfo.name !== action.payload.status
                 ) {
                   return {
                     ...s,
@@ -155,6 +158,27 @@ const kanbanSlice = createSlice({
       });
       state.data = data;
     },
+    isDeleteTaskBtn: (state, action) => {
+      state.isDeleteTask = true;
+      state.editTaskModal = false;
+      state.sideTaskModal = false;
+    },
+    cancelDeleteTaskBtn: (state) => {
+      state.isDeleteTask = false;
+    },
+    openHeaderModal: (state) => {
+      state.isHeaderModalOpen = true;
+    },
+    closeHeaderModal: (state) => {
+      state.isHeaderModalOpen = false;
+    },
+    isDeleteBoardBtn: (state) => {
+      state.isDeleteBoard = true;
+      state.isHeaderModalOpen = false;
+    },
+    cancelDeleteBoardBtn: (state) => {
+      state.isDeleteBoard = false;
+    },
   },
 });
 
@@ -172,6 +196,15 @@ export const {
   editTaskOn,
   EditUpdate,
   addNewTask,
+  isDeleteBoard,
+  isDeleteTask,
+  isDeleteTaskBtn,
+  cancelDeleteTaskBtn,
+  isHeaderModalOpen,
+  openHeaderModal,
+  closeHeaderModal,
+  isDeleteBoardBtn,
+  cancelDeleteBoardBtn,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
 

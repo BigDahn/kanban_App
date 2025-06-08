@@ -5,12 +5,12 @@ import { EditUpdate, openSideTaskModal } from "../feature/kanban/kanbanSlice";
 import SmallSideModal from "./SmallSideModal";
 
 function EditTaskModal() {
-  const { data, activeState, editTask, isEdit } = useSelector(
+  const { data, activeState, editTask, isEdit, editTaskInfo } = useSelector(
     (state) => state.kanban
   );
 
   const { title, description, status, subtasks } = editTask;
-
+  console.log(editTaskInfo.name);
   const [index, setIndex] = useState({
     isTrue: false,
     value: "",
@@ -18,7 +18,7 @@ function EditTaskModal() {
   const [subtask, setSubtask] = useState(subtasks);
   const [statusChange, setStatusChange] = useState({
     stat: false,
-    option: status,
+    option: status === "" ? editTaskInfo.name : status,
   });
   const dispatch = useDispatch();
 
@@ -34,6 +34,8 @@ function EditTaskModal() {
 
   function handleSelect(e) {
     const { value } = e.target;
+
+    console.log(value);
     setStatusChange({
       stat: true,
       option: value,
@@ -65,7 +67,7 @@ function EditTaskModal() {
       status: statusChange.option,
       subtasks: subtask,
     };
-
+    console.log(data);
     dispatch(EditUpdate(data));
   }
 
@@ -139,12 +141,14 @@ function EditTaskModal() {
               className="border-primary-600 border-1 rounded-sm h-[2rem] px-1 bg-primary-300 hover:border-primary-100  text-[12px] font-plus-jakarta-sans font-medium text-white outline-none"
             >
               <option className="text-white font-plus-jakarta-sans font-medium">
-                {status}
+                {status === "" ? editTaskInfo.name : status}
               </option>
               {data
                 .filter((s) => s.name === activeState)[0]
                 .columns.map((s) => s.name)
-                .filter((s) => s !== status)
+                .filter(
+                  (s) => s !== (status === "" ? editTaskInfo.name : status)
+                )
                 .map((s, i) => (
                   <option
                     key={i}

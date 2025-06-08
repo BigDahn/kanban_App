@@ -8,10 +8,20 @@ import AddTask from "./components/AddTask";
 import EditTaskModal from "./components/EditTaskModal";
 import { openSideTaskModal } from "./feature/kanban/kanbanSlice";
 import SmallSideModal from "./components/SmallSideModal";
+import DeleteBoardModal from "./components/DeleteBoardModal";
+import DeleteConfirmationTaskBox from "./components/DeleteConfirmationTaskBox";
+import HeaderModal from "./components/HeaderModal";
 
 function App() {
-  const { sideTaskModal, addColumnModal, addNewTask, editTaskModal } =
-    useSelector((state) => state.kanban);
+  const {
+    sideTaskModal,
+    addColumnModal,
+    addNewTask,
+    editTaskModal,
+    isDeleteBoard,
+    isDeleteTask,
+    isHeaderModalOpen,
+  } = useSelector((state) => state.kanban);
 
   return (
     <main className="grid h-screen  m-auto box-border grid-rows-[80px_auto] overflow-hidden ">
@@ -23,6 +33,9 @@ function App() {
         {addNewTask && <AddTask />}
         {editTaskModal && <EditTaskModal />}
         {sideTaskModal && <SmallSideModal />}
+        {isDeleteBoard && <DeleteBoardModal />}
+        {isDeleteTask && <DeleteConfirmationTaskBox />}
+        {isHeaderModalOpen && <HeaderModal />}
       </Container>
     </main>
   );
