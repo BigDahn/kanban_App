@@ -37,7 +37,10 @@ function Sidebar() {
               </li>
             );
           })}
-          <li className="flex items-center gap-3 px-5 py-2.5">
+          <li
+            className="flex items-center gap-3  w-[96%] py-2.5  rounded-tr-full text-primary-600 rounded-br-full  px-5 hover:bg-white cursor-pointer hover:text-primary-600"
+            onClick={() => alert("hello")}
+          >
             <img src="/assets/icon-board.svg" />{" "}
             <span className="text-[15px] font-medium text-primary-100">
               + Create New Board

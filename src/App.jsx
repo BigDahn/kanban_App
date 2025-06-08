@@ -11,6 +11,7 @@ import SmallSideModal from "./components/SmallSideModal";
 import DeleteBoardModal from "./components/DeleteBoardModal";
 import DeleteConfirmationTaskBox from "./components/DeleteConfirmationTaskBox";
 import HeaderModal from "./components/HeaderModal";
+import Board from "./components/Board";
 
 function App() {
   const {
@@ -21,6 +22,7 @@ function App() {
     isDeleteBoard,
     isDeleteTask,
     isHeaderModalOpen,
+    newBoard,
   } = useSelector((state) => state.kanban);
 
   return (
@@ -36,6 +38,7 @@ function App() {
         {isDeleteBoard && <DeleteBoardModal />}
         {isDeleteTask && <DeleteConfirmationTaskBox />}
         {isHeaderModalOpen && <HeaderModal />}
+        {newBoard && <Board />}
       </Container>
     </main>
   );

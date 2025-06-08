@@ -15,6 +15,7 @@ const initialState = {
   isDeleteBoard: false,
   isDeleteTask: false,
   isHeaderModalOpen: false,
+  newBoard: true,
 };
 
 const kanbanSlice = createSlice({
@@ -205,6 +206,7 @@ export const {
   closeHeaderModal,
   isDeleteBoardBtn,
   cancelDeleteBoardBtn,
+  newBoard,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
 
