@@ -1,5 +1,8 @@
 import { useDispatch } from "react-redux";
-import { cancelDeleteTaskBtn } from "../feature/kanban/kanbanSlice";
+import {
+  cancelDeleteTaskBtn,
+  deleteCurrentTask,
+} from "../feature/kanban/kanbanSlice";
 
 function DeleteConfirmationTaskBox() {
   const dispatch = useDispatch();
@@ -16,7 +19,10 @@ function DeleteConfirmationTaskBox() {
           </p>
         </div>
         <div className="flex justify-between">
-          <button className="bg-secondary-400 cursor-pointer hover:bg-secondary-500 text-white rounded-full w-[200px] h-[40px] text-[13px] font-bold font-plus-jakarta-sans">
+          <button
+            onClick={() => dispatch(deleteCurrentTask())}
+            className="bg-secondary-400 cursor-pointer hover:bg-secondary-500 text-white rounded-full w-[200px] h-[40px] text-[13px] font-bold font-plus-jakarta-sans"
+          >
             Delete
           </button>
           <button

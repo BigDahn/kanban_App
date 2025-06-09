@@ -10,11 +10,18 @@ function UpdateTaskModal() {
   const dispatch = useDispatch();
 
   const { title, description, status, subtasks } = editTask;
-  const [subtask, setSubtask] = useState(subtasks);
+  const [subtask, setSubtask] = useState(
+    subtasks.map((s) => {
+      return {
+        title: s.title,
+        isCompleted: s.isCompleted,
+      };
+    })
+  );
   const [taskInfo, setTaskInfo] = useState({
     title: title,
     description: description,
-    status: status,
+    status: status === "" ? editTaskInfo.name : status,
   });
   function addmoreSubtasks(e) {
     e.preventDefault();

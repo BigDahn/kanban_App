@@ -25,12 +25,6 @@ const kanbanSlice = createSlice({
     changeActiveState: (state, action) => {
       state.activeState = state.data.at(action.payload).name;
     },
-    addNewColumn: (state, action) => {
-      console.log(action);
-    },
-    editTasks: (state, action) => {
-      console.log(action);
-    },
     newColumn: (state) => {
       state.addColumnModal = true;
     },
@@ -38,7 +32,6 @@ const kanbanSlice = createSlice({
       state.addColumnModal = false;
     },
     addColumn: (state, action) => {
-      console.log(action.payload);
       state.data = state.data.map((s) => {
         if (s.name === state.activeState) {
           return {
@@ -49,10 +42,10 @@ const kanbanSlice = createSlice({
         return s;
       });
     },
-    addNewTaskBtn: (state, action) => {
+    addNewTaskBtn: (state) => {
       state.addNewTask = true;
     },
-    closeAddNewTaskModal: (state, action) => {
+    closeAddNewTaskModal: (state) => {
       state.addNewTask = false;
     },
     openEditTaskModal: (state, action) => {
@@ -63,7 +56,7 @@ const kanbanSlice = createSlice({
         .columns.filter((s) => s.name === action.payload.name)[0]
         .tasks.filter((s) => s.title === action.payload.title)[0];
     },
-    closeEditTaskModal: (state, action) => {
+    closeEditTaskModal: (state) => {
       state.editTaskModal = false;
       state.isEdit = false;
       state.sideTaskModal = false;
@@ -79,6 +72,7 @@ const kanbanSlice = createSlice({
       state.editTaskModal = false;
       state.isEdit = false;
       state.sideTaskModal = false;
+
       const data = state.data
         .map((s) => {
           if (s.name === state.activeState) {
@@ -139,7 +133,6 @@ const kanbanSlice = createSlice({
       state.falseData = data;
     },
     addNewTask: (state, action) => {
-      console.log(action.payload);
       const data = state.data.map((s) => {
         if (s.name === state.activeState) {
           return {
@@ -159,13 +152,36 @@ const kanbanSlice = createSlice({
       });
       state.data = data;
     },
-    isDeleteTaskBtn: (state, action) => {
+    isDeleteTaskBtn: (state) => {
       state.isDeleteTask = true;
       state.editTaskModal = false;
       state.sideTaskModal = false;
     },
     cancelDeleteTaskBtn: (state) => {
       state.isDeleteTask = false;
+    },
+    deleteCurrentTask: (state) => {
+      state.isDeleteTask = false;
+      const data = state.data.map((s) => {
+        if (s.name === state.activeState) {
+          return {
+            ...s,
+            columns: s.columns.map((s) => {
+              if (s.name === state.editTask.status) {
+                return {
+                  ...s,
+                  tasks: s.tasks.filter(
+                    (s) => s.title !== state.editTask.title
+                  ),
+                };
+              }
+              return s;
+            }),
+          };
+        }
+        return s;
+      });
+      state.data = data;
     },
     openHeaderModal: (state) => {
       state.isHeaderModalOpen = true;
@@ -229,6 +245,7 @@ export const {
   closeNewBoardModal,
   newBoardData,
   deleteBoard,
+  deleteCurrentTask,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
 

@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { EditUpdate, openSideTaskModal } from "../feature/kanban/kanbanSlice";
-import SmallSideModal from "./SmallSideModal";
+
 import UpdateTaskModal from "./UpdateTaskModal";
 
 function EditTaskModal() {
@@ -31,7 +31,6 @@ function EditTaskModal() {
   function handleSelect(e) {
     const { value } = e.target;
 
-    console.log(value);
     setStatusChange({
       stat: true,
       option: value,
@@ -64,7 +63,9 @@ function EditTaskModal() {
       status: statusChange.option,
       subtasks: subtask,
     };
+
     console.log(data);
+
     dispatch(EditUpdate(data));
   }
 

@@ -2,13 +2,14 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
 
 import { useState } from "react";
 import Select from "../ui/Select";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addNewTask,
   closeAddNewTaskModal,
 } from "../feature/kanban/kanbanSlice";
 
 function AddTask() {
+  const { isDarkMode } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   const [subtasks, setSubTasks] = useState([
     {
@@ -98,9 +99,21 @@ function AddTask() {
 
   return (
     <section className="fixed inset-0  flex items-center justify-center w- h-screen m-auto rounded-md z-50 bg-primary-400/52">
-      <div className=" max-h-min flex flex-col gap-2 items-start max-w-fit px-[1.3rem] py-4  m-auto rounded-md bg-primary-500">
+      <div
+        className={`${
+          isDarkMode
+            ? " max-h-min flex flex-col gap-5 items-start max-w-fit px-[1.3rem] py-4  m-auto rounded-md bg-primary-500"
+            : " max-h-min flex flex-col gap-5 items-start max-w-fit px-[1.3rem] py-4  m-auto rounded-md bg-white"
+        }`}
+      >
         <div className="flex items-center justify-between w-full ">
-          <h3 className="text-[15px] font-plus-jakarta-sans font-bold text-primary-600">
+          <h3
+            className={`${
+              isDarkMode
+                ? "text-[15px] font-plus-jakarta-sans font-bold text-primary-600"
+                : "text-[15px] font-plus-jakarta-sans font-bold text-primary-200"
+            }`}
+          >
             Add New Task
           </h3>
           <XMarkIcon
@@ -110,13 +123,17 @@ function AddTask() {
           />
         </div>
         <form
-          className="flex flex-col  gap-3"
+          className="flex flex-col  gap-5"
           onSubmit={(e) => handleSubmit(e)}
         >
           <div className="flex flex-col gap-2 relative">
             <label
               htmlFor="title"
-              className="text-[15px] font-plus-jakarta-sans font-medium text-white"
+              className={`${
+                isDarkMode
+                  ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                  : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+              }`}
             >
               Title
             </label>
@@ -127,8 +144,10 @@ function AddTask() {
               onChange={handleChange}
               className={`${
                 error?.field?.taskInfo?.title === ""
-                  ? "bg-transparent border-1 border-secondary-400  outline-none  w-[20rem] h-[2rem] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
-                  : "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[2rem] px-2 capitalize rounded-sm text-white hover:border-primary-100 cursor-pointer"
+                  ? "bg-transparent border-1 border-secondary-400  outline-none  w-[20rem] h-[40px] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
+                  : isDarkMode
+                  ? "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white hover:border-primary-100 cursor-pointer"
+                  : "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black hover:border-primary-100 cursor-pointer"
               }`}
             />
             {error?.field?.taskInfo?.title === "" && (
@@ -140,7 +159,11 @@ function AddTask() {
           <div className="flex flex-col gap-2 relative">
             <label
               htmlFor="description"
-              className="text-[15px] font-plus-jakarta-sans font-medium text-white"
+              className={`${
+                isDarkMode
+                  ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                  : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+              }`}
             >
               Description
             </label>
@@ -150,14 +173,22 @@ function AddTask() {
               type="text"
               onChange={handleChange}
               placeholder="e.g. It’s always good to take a break.This 15 minute break will recharge the batteries a little."
-              className="bg-transparent border-1 border-gray-400 text-[12px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
+              className={`${
+                isDarkMode
+                  ? "bg-transparent border-1 border-gray-400 text-[12px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
+                  : "bg-transparent border-1 border-gray-400 text-[12px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer"
+              }`}
             />
           </div>
           {subtasks.length >= 1 && (
             <div className="flex flex-col gap-2 ">
               <label
                 htmlFor="title"
-                className="text-[15px] font-plus-jakarta-sans font-medium text-white"
+                className={`${
+                  isDarkMode
+                    ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                    : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+                }`}
               >
                 Subtasks
               </label>
@@ -175,7 +206,9 @@ function AddTask() {
                       className={`${
                         error?.field?.subtasks
                           ? "bg-transparent border-1 border-secondary-400 outline-none w-full  h-[2rem] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer placeholder:text-[12px]"
-                          : "bg-transparent border-1 border-gray-400 outline-none w-full  h-[2rem] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer placeholder:text-[12px]"
+                          : isDarkMode
+                          ? "bg-transparent border-1 border-gray-400 outline-none w-full  h-[2rem] px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer placeholder:text-[12px]"
+                          : "bg-transparent border-1 border-gray-400 outline-none w-full  h-[2rem] px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer placeholder:text-[12px]"
                       }`}
                     />
 
@@ -191,7 +224,11 @@ function AddTask() {
                 );
               })}{" "}
               <button
-                className="bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-medium font-plus-jakarta-sans"
+                className={`${
+                  isDarkMode
+                    ? "bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-bold font-plus-jakarta-sans cursor-pointer"
+                    : "bg-primary-100/20 rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-bold font-plus-jakarta-sans cursor-pointer"
+                }`}
                 onClick={() => addmoreSubtasks()}
               >
                 <PlusIcon className="size-4" /> Add New Subtask
@@ -199,8 +236,14 @@ function AddTask() {
             </div>
           )}
           <div className="flex flex-col gap-2">
-            <label className="text-[13px] font-plus-jakarta-sans font-medium text-white">
-              status
+            <label
+              className={`${
+                isDarkMode
+                  ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                  : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+              }`}
+            >
+              Status
             </label>
             <Select
               onChange={handleChange}

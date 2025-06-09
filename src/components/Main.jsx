@@ -60,7 +60,11 @@ function Main() {
                       const { title, subtasks } = s;
                       return (
                         <div
-                          className="bg-primary-400 rounded-lg pl-4 pr-7 py-[0.5rem] cursor-pointer"
+                          className={`${
+                            isDarkMode
+                              ? "bg-primary-400 rounded-lg pl-4 pr-7 py-[0.5rem] cursor-pointer"
+                              : "bg-white shadow-sm rounded-lg pl-4 pr-7 py-[0.5rem] cursor-pointer"
+                          }`}
                           onMouseOver={() => setIndex(title)}
                           onMouseLeave={() => setIndex("")}
                           key={i}
@@ -73,8 +77,10 @@ function Main() {
                             <h3
                               className={`${
                                 index === title
-                                  ? "transition-all ease-linear delay-100 text-[13px] text-primary-100 font-medium"
-                                  : "text-[13px] text-white font-medium"
+                                  ? "transition-all ease-linear delay-100 text-[15px] text-primary-100 font-bold"
+                                  : isDarkMode
+                                  ? "text-[15px] text-white font-bold"
+                                  : "text-[15px] text-black font-bold font-plus-jakarta-sans"
                               }`}
                             >
                               {title}
@@ -96,7 +102,13 @@ function Main() {
             })}
           </div>
 
-          <div className="bg-primary-300 h-full w-[250px]  flex items-center justify-center shadow-sm">
+          <div
+            className={`${
+              isDarkMode
+                ? "bg-primary-300 h-full w-[250px]  flex items-center justify-center shadow-sm"
+                : "bg-secondary-100 h-full w-[250px]  flex items-center justify-center shadow-sm"
+            }`}
+          >
             <button
               className="flex  items-center gap-2 text-primary-600 hover:text-primary-100 font-plus-jakarta-sans font-bold text-[24px] cursor-pointer transition-all ease-linear delay-75"
               onClick={() => dispatch(newColumn())}
