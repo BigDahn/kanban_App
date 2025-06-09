@@ -15,7 +15,7 @@ const initialState = {
   isDeleteBoard: false,
   isDeleteTask: false,
   isHeaderModalOpen: false,
-  newBoard: true,
+  newBoard: false,
 };
 
 const kanbanSlice = createSlice({
@@ -180,6 +180,24 @@ const kanbanSlice = createSlice({
     cancelDeleteBoardBtn: (state) => {
       state.isDeleteBoard = false;
     },
+    createNewBoard: (state) => {
+      state.newBoard = true;
+    },
+    closeNewBoardModal: (state) => {
+      state.newBoard = false;
+    },
+    newBoardData: (state, action) => {
+      state.newBoard = false;
+      const data = [...state.data, action.payload];
+
+      state.data = data;
+    },
+    deleteBoard: (state) => {
+      const data = state.data.filter((s) => s.name !== state.activeState);
+      state.data = data;
+      state.isDeleteBoard = false;
+      state.activeState = state.data.at(0)?.name ?? null;
+    },
   },
 });
 
@@ -207,6 +225,10 @@ export const {
   isDeleteBoardBtn,
   cancelDeleteBoardBtn,
   newBoard,
+  createNewBoard,
+  closeNewBoardModal,
+  newBoardData,
+  deleteBoard,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
 

@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import Theme from "../ui/Theme";
 import { closeSidebar, openSideBar } from "../feature/theme/themeSlice";
-import { changeActiveState } from "../feature/kanban/kanbanSlice";
+import {
+  changeActiveState,
+  createNewBoard,
+} from "../feature/kanban/kanbanSlice";
 
 function Sidebar() {
   const { isSidebarOpen, isDarkMode } = useSelector((state) => state.theme);
@@ -39,7 +42,7 @@ function Sidebar() {
           })}
           <li
             className="flex items-center gap-3  w-[96%] py-2.5  rounded-tr-full text-primary-600 rounded-br-full  px-5 hover:bg-white cursor-pointer hover:text-primary-600"
-            onClick={() => alert("hello")}
+            onClick={() => dispatch(createNewBoard())}
           >
             <img src="/assets/icon-board.svg" />{" "}
             <span className="text-[15px] font-medium text-primary-100">

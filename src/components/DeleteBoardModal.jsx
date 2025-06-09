@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { cancelDeleteBoardBtn } from "../feature/kanban/kanbanSlice";
+import {
+  cancelDeleteBoardBtn,
+  deleteBoard,
+} from "../feature/kanban/kanbanSlice";
 
 function DeleteBoardModal() {
   const { activeState } = useSelector((state) => state.kanban);
@@ -17,7 +20,10 @@ function DeleteBoardModal() {
           </p>
         </div>
         <div className="flex justify-between">
-          <button className="bg-secondary-400 cursor-pointer hover:bg-secondary-500 text-white rounded-full w-[200px] h-[40px] text-[13px] font-bold font-plus-jakarta-sans">
+          <button
+            onClick={() => dispatch(deleteBoard())}
+            className="bg-secondary-400 cursor-pointer hover:bg-secondary-500 text-white rounded-full w-[200px] h-[40px] text-[13px] font-bold font-plus-jakarta-sans"
+          >
             Delete
           </button>
           <button

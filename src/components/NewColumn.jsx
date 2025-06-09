@@ -23,8 +23,8 @@ function NewColumn() {
     dispatch(closeColumnModal());
   }
   return (
-    <section className="fixed inset-0  flex items-center justify-center w- h-screen m-auto rounded-md z-50 bg-primary-400/52">
-      <div className=" max-h-min flex flex-col gap-5 items-start px-3 py-4 w-[40vh] m-auto rounded-md bg-primary-500">
+    <section className="fixed inset-0  flex items-center justify-center w-screen h-screen m-auto rounded-md z-50 bg-primary-400/52">
+      <div className=" max-h-min flex flex-col gap-5 items-start px-3 py-4 min-w-[15rem] m-auto rounded-md bg-primary-500">
         <div className="flex justify-between w-full items-center">
           <h2 className="text-[12px] text-primary-600 font-bold font-plus-jakarta-sans">
             Add New Column

@@ -1,25 +1,49 @@
 import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  closeNewBoardModal,
+  newBoardData,
+} from "../feature/kanban/kanbanSlice";
 
 function Board() {
+  const dispatch = useDispatch();
   const [boardName, setBoardName] = useState("");
   const [columns, setColumns] = useState([
     {
       name: "",
+      tasks: [],
     },
     {
       name: "",
+      tasks: [],
     },
   ]);
 
+  const [error, setError] = useState({
+    isError: false,
+    msg: "",
+    field: {},
+  });
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (boardName === "") {
+      setError({
+        isError: true,
+        msg: "This field required",
+        field: {
+          boardName,
+          columns,
+        },
+      });
+    }
     const data = {
-      board: boardName,
+      name: boardName.charAt(0).toUpperCase() + boardName.slice(1),
       columns: columns,
     };
-
-    console.log(data);
+    dispatch(newBoardData(data));
   }
   function addColumns(e) {
     e.preventDefault();
@@ -36,8 +60,9 @@ function Board() {
   }
   function handleInput(e, i) {
     const { name, value } = e.target;
+
     let newColumns = [...columns];
-    newColumns[i][name] = value;
+    newColumns[i][name] = value.charAt(0).toUpperCase() + value.slice(1);
     setColumns(newColumns);
   }
 
@@ -48,59 +73,85 @@ function Board() {
           <h3 className="font-bold text-white text-[18px] font-plus-jakarta-sans">
             Add New Board
           </h3>
-          <XMarkIcon className="size-4 text-primary-600 hover:text-primary-100 cursor-pointer" />
+          <XMarkIcon
+            onClick={() => dispatch(closeNewBoardModal())}
+            className="size-4 text-primary-600 hover:text-primary-100 cursor-pointer"
+          />
         </div>
-        <form className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2 relative">
             <label className="text-white font-plus-jakarta-sans text-[12px] font-bold">
               Board Name
             </label>
             <input
               type="text"
               placeholder="e.g. Web Design"
-              onChange={(e) => setBoardName(e.target.value)}
-              className="outline-none text-primary-600 text-[13px] font-plus-jakarta-sans border-white/25 border-1 rounded-sm h-[40px] px-1"
+              onChange={(e) => {
+                setBoardName(e.target.value), setError({});
+              }}
+              className={`${
+                error?.field?.boardName === ""
+                  ? "outline-none text-primary-600 text-[13px] font-plus-jakarta-sans border-secondary-400/25 border-1 rounded-sm h-[40px] px-1 hover:border-primary-100 cursor-pointer"
+                  : "outline-none text-primary-600 text-[13px] font-plus-jakarta-sans border-white/25 border-1 rounded-sm h-[40px] px-1 hover:border-primary-100 cursor-pointer"
+              }`}
             />
+            {error?.field?.boardName === "" && (
+              <p className="text-[7px] text-secondary-400 font-plus-jakarta-sans absolute top-13 left-[19.7rem]">
+                {error.msg}
+              </p>
+            )}
           </div>
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="columns"
-              className="text-white font-plus-jakarta-sans text-[12px] font-bold"
-            >
-              Board Columns
-            </label>
+          {columns.length >= 1 && (
             <div className="flex flex-col gap-3">
-              {columns.map((s, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="flex items-center justify-between  gap-3"
-                  >
-                    <input
-                      type="text"
-                      name="columns"
-                      onChange={(e) => handleInput(e, i)}
-                      className="outline-none w-full text-primary-600 text-[13px] font-plus-jakarta-sans border-white/25 border-1 rounded-sm h-[40px] px-1"
-                    />
-                    <button onClick={(e) => removeColumns(e, i)}>
-                      <XMarkIcon className="size-6 text-gray-600 hover:text-secondary-400 cursor-pointer" />
-                    </button>
-                  </div>
-                );
-              })}
+              <label
+                htmlFor="name"
+                className="text-white font-plus-jakarta-sans text-[12px] font-bold"
+              >
+                Board Columns
+              </label>
+              <div className="flex flex-col gap-3">
+                {columns.map((s, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between  gap-3 relative"
+                    >
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        onChange={(e) => handleInput(e, i)}
+                        className={`${
+                          error?.field?.columns
+                            ? "bg-transparent border-1 border-secondary-400 outline-none w-full  h-[40px] px-2 rounded-sm text-white hover:border-secondary-400 cursor-pointer text-[13px]"
+                            : "bg-transparent border-1 border-gray-400 outline-none w-full  h-[40px] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer text-[13px] capitalize"
+                        }`}
+                      />
+                      <button onClick={(e) => removeColumns(e, i)}>
+                        <XMarkIcon className="size-6 text-gray-600 hover:text-secondary-400 cursor-pointer" />
+                      </button>
+                      {error?.field?.columns && (
+                        <p className="text-[6.6px] text-secondary-400 font-plus-jakarta-sans absolute top-5 left-[17.7rem]">
+                          {error.msg}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <button
+                onClick={addColumns}
+                className="flex items-center justify-center bg-white rounded-full h-[40px]"
+              >
+                <PlusIcon className="size-4 text-primary-100" />{" "}
+                <h3 className="font-plus-jakarta-sans text-[13px] text-primary-100 font-bold">
+                  Add New Column
+                </h3>
+              </button>
             </div>
-            <button
-              onClick={addColumns}
-              className="flex items-center justify-center bg-white rounded-full h-[40px]"
-            >
-              <PlusIcon className="size-4 text-primary-100" />{" "}
-              <h3 className="font-plus-jakarta-sans text-[13px] text-primary-100 font-bold">
-                Add New Column
-              </h3>
-            </button>
-          </div>
+          )}
           <button
-            onClick={handleSubmit}
+            disabled={error.isError}
             className="text-[13px] font-plus-jakarta-sans font-medium text-white h-[40px] rounded-full bg-primary-100"
           >
             Create New Board
