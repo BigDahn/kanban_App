@@ -7,6 +7,7 @@ function UpdateTaskModal() {
   const { data, activeState, editTask, editTaskInfo } = useSelector(
     (state) => state.kanban
   );
+  const { isDarkMode } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
   const { title, description, status, subtasks } = editTask;
@@ -19,7 +20,7 @@ function UpdateTaskModal() {
       };
     })
   );
-  console.log(subtasks.length === 0);
+
   const [taskInfo, setTaskInfo] = useState({
     title: title,
     description: description,
@@ -74,10 +75,20 @@ function UpdateTaskModal() {
     <div className="fixed inset-0  flex items-center justify-center w-screen h-screen m-auto rounded-md z-50 bg-primary-400/52">
       <form
         onSubmit={handleSubmit}
-        className=" flex flex-col gap-[2rem] items-start px-3 py-4 w-[25rem] min-h-fit m-auto rounded-md z-50 bg-primary-400 shadow-lg shadow-primary-300"
+        className={`${
+          isDarkMode
+            ? " flex flex-col gap-[2rem] items-start px-3 py-4 w-[25rem] min-h-fit m-auto rounded-md z-50 bg-primary-400 shadow-lg shadow-primary-300"
+            : " flex flex-col gap-[2rem] items-start px-3 py-4 w-[25rem] min-h-fit m-auto rounded-md z-50 bg-white shadow-sm "
+        }`}
       >
         <div className="flex justify-between items-center w-full">
-          <h3 className="text-white font-bold text-[15px] font-plus-jakarta-sans">
+          <h3
+            className={`${
+              isDarkMode
+                ? "text-white font-bold text-[15px] font-plus-jakarta-sans"
+                : "text-black font-bold text-[15px] font-plus-jakarta-sans"
+            }`}
+          >
             Edit Task
           </h3>
           <XMarkIcon
@@ -89,14 +100,22 @@ function UpdateTaskModal() {
           <div className="flex flex-col gap-2 ">
             <label
               htmlFor="title"
-              className="text-[12px] font-plus-jakarta-sans font-bold text-white"
+              className={`${
+                isDarkMode
+                  ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                  : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+              }`}
             >
               Title
             </label>
             <input
               type="text"
               name="title"
-              className="outline-none border rounded-md px-3 text-white h-[40px] border-white/25 text-[13px] font-plus-jakarta-sans"
+              className={`${
+                isDarkMode
+                  ? "outline-none border rounded-md px-3 text-white h-[40px] border-white/25 text-[13px] font-plus-jakarta-sans"
+                  : "outline-none border rounded-md px-3 text-black  h-[40px] border-gray-400 cursor-pointer hover:border-primary-100 text-[13px] font-plus-jakarta-sans"
+              }`}
               value={taskInfo.title}
               onChange={handleInputChange}
             />
@@ -104,7 +123,11 @@ function UpdateTaskModal() {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="description"
-              className="text-[12px] font-plus-jakarta-sans font-bold text-white"
+              className={`${
+                isDarkMode
+                  ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                  : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+              }`}
             >
               Description
             </label>
@@ -115,7 +138,11 @@ function UpdateTaskModal() {
               value={taskInfo.description}
               onChange={handleInputChange}
               placeholder="e.g. It’s always good to take a break.This 15 minute break will recharge the batteries a little."
-              className="bg-transparent border-1 border-white/25 text-[12px] outline-none  h-[112px] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
+              className={`${
+                isDarkMode
+                  ? "outline-none border rounded-md text-white h-[112px] py-1 flex items-start justify-start px-2 border-white/25 text-[13px] font-plus-jakarta-sans"
+                  : "outline-none border rounded-md  text-black  h-[112px] py-1 flex items-start justify-start px-2 border-gray-400 cursor-pointer hover:border-primary-100 text-[13px] font-plus-jakarta-sans"
+              }`}
             />
           </div>
           {
@@ -123,7 +150,11 @@ function UpdateTaskModal() {
               {subtask.length >= 1 && (
                 <label
                   htmlFor="title"
-                  className="text-[12px] font-plus-jakarta-sans font-bold text-white"
+                  className={`${
+                    isDarkMode
+                      ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                      : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+                  }`}
                 >
                   Subtasks
                 </label>
@@ -140,7 +171,11 @@ function UpdateTaskModal() {
                       required
                       defaultValue={s.title}
                       placeholder="e.g tasks that should be done "
-                      className={`${"bg-transparent border-1 border-white/25 outline-none w-full  h-[2rem] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer text-[12px]"}`}
+                      className={`${
+                        isDarkMode
+                          ? "bg-transparent border-1 border-gray-400 outline-none  w-full  h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer placeholder:lowercase"
+                          : "bg-transparent border-1 border-gray-400 outline-none  w-full  h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer placeholder:lowercase"
+                      }`}
                     />
 
                     <button onClick={(e) => removeInput(e, i)}>
@@ -150,7 +185,11 @@ function UpdateTaskModal() {
                 );
               })}{" "}
               <button
-                className="bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-medium font-plus-jakarta-sans"
+                className={`${
+                  isDarkMode
+                    ? "bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-bold cursor-pointer font-plus-jakarta-sans"
+                    : "bg-primary-100/25 rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-bold cursor-pointer font-plus-jakarta-sans"
+                }`}
                 onClick={(e) => addmoreSubtasks(e)}
               >
                 <PlusIcon className="size-4" /> Add New Subtask
@@ -160,16 +199,30 @@ function UpdateTaskModal() {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="status"
-              className="text-[12px] font-plus-jakarta-sans font-medium text-primary-600"
+              className={`${
+                isDarkMode
+                  ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                  : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+              }`}
             >
               Status
             </label>
             <select
               name="status"
               onChange={handleInputChange}
-              className="border-white/25 border-1 rounded-sm h-[2rem] px-1 bg-primary-300 hover:border-primary-100  text-[12px] font-plus-jakarta-sans font-medium text-white outline-none"
+              className={`${
+                isDarkMode
+                  ? "border-primary-600 border-1 rounded-sm h-[40px] px-1 bg-primary-300 hover:border-primary-100  text-[13px] font-plus-jakarta-sans font-medium text-white outline-none"
+                  : "border-primary-600 border-1 rounded-sm h-[40px] px-1 bg-white hover:border-primary-100  text-[13px] font-plus-jakarta-sans font-medium text-black outline-none"
+              }`}
             >
-              <option className="text-white font-plus-jakarta-sans font-medium">
+              <option
+                className={`${
+                  isDarkMode
+                    ? "text-white font-plus-jakarta-sans font-medium"
+                    : "text-black font-plus-jakarta-sans font-medium"
+                }`}
+              >
                 {status === "" ? editTaskInfo.name : status}
               </option>
               {data
@@ -181,7 +234,11 @@ function UpdateTaskModal() {
                 .map((s, i) => (
                   <option
                     key={i}
-                    className="bg-primary-300 font-plus-jakarta-sans font-medium"
+                    className={`${
+                      isDarkMode
+                        ? "bg-primary-300 font-plus-jakarta-sans font-medium"
+                        : "bg-white font-plus-jakarta-sans font-medium"
+                    }`}
                   >
                     {s}
                   </option>
@@ -189,7 +246,11 @@ function UpdateTaskModal() {
             </select>
           </div>
           <button
-            className="bg-primary-100 text-white font-plus-jakarta-sans font-medium text-[13px] h-[40px] rounded-full disabled:bg-primary-600"
+            className={`${
+              isDarkMode
+                ? "bg-primary-100 rounded-full flex items-center justify-center text-white text-[13px]  h-[40px] font-bold cursor-pointer font-plus-jakarta-sans"
+                : "bg-primary-100/25 rounded-full flex items-center justify-center text-primary-100 text-[13px]  h-[40px] font-bold cursor-pointer font-plus-jakarta-sans"
+            }`}
             onClick={handleSubmit}
           >
             Update Changes
