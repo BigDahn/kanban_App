@@ -6,10 +6,17 @@ import {
 
 function DeleteBoardModal() {
   const { activeState } = useSelector((state) => state.kanban);
+  const { isDarkMode } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   return (
     <section className="fixed inset-0  flex items-center justify-center w- h-screen m-auto rounded-md z-50 bg-primary-400/52">
-      <div className="w-[480px] h-[229px] bg-primary-300 px-8 py-8 flex flex-col gap-4 justify-evenly rounded-md">
+      <div
+        className={`${
+          isDarkMode
+            ? "w-[480px] h-[229px] bg-primary-300 px-8 py-8 flex flex-col gap-4 justify-evenly rounded-md"
+            : "w-[480px] h-[229px] bg-white px-8 py-8 flex flex-col gap-4 justify-evenly rounded-md"
+        }`}
+      >
         <div className="flex flex-col gap-3 ">
           <h3 className="font-bold font-plus-jakarta-sans text-secondary-400 text-[18px]">
             Delete this board?
@@ -28,7 +35,11 @@ function DeleteBoardModal() {
           </button>
           <button
             onClick={() => dispatch(cancelDeleteBoardBtn())}
-            className="bg-primary-50 cursor-pointer hover:bg-white text-primary-100 w-[200px] rounded-full h-[40px] text-[13px] font-bold font-plus-jakarta-sans"
+            className={`${
+              isDarkMode
+                ? "bg-primary-50 cursor-pointer hover:bg-white text-primary-100 w-[200px] rounded-full h-[40px] text-[13px] font-bold font-plus-jakarta-sans"
+                : "bg-primary-50 cursor-pointer hover:bg-primary-100/25 text-primary-100 w-[200px] rounded-full h-[40px] text-[13px] font-bold font-plus-jakarta-sans"
+            }`}
           >
             Cancel
           </button>

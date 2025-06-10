@@ -28,9 +28,13 @@ function Sidebar() {
               <li
                 key={i}
                 className={`${
-                  activeState === s.name
-                    ? "flex items-center gap-3 bg-primary-100 w-[96%] py-2.5 text-white rounded-tr-full rounded-br-full  px-5 hover:bg-white cursor-pointer hover:text-primary-600"
-                    : "flex items-center gap-3  w-[96%] py-2.5  rounded-tr-full text-primary-600 rounded-br-full  px-5 hover:bg-white cursor-pointer hover:text-primary-600"
+                  isDarkMode && activeState === s.name
+                    ? " flex items-center gap-3 bg-primary-100 w-[96%] py-2.5 text-white rounded-tr-full rounded-br-full  px-5 hover:bg-white cursor-pointer hover:text-primary-600"
+                    : isDarkMode && activeState !== s.name
+                    ? "flex items-center gap-3  w-[96%] py-2.5  rounded-tr-full text-primary-600 rounded-br-full  px-5 hover:bg-white cursor-pointer hover:text-primary-600"
+                    : !isDarkMode && activeState === s.name
+                    ? "flex items-center gap-3 bg-primary-100 w-[96%] py-2.5 text-white rounded-tr-full rounded-br-full  px-5  cursor-pointer hover:bg-primary-100/25 hover:text-primary-100"
+                    : "flex items-center gap-3  w-[96%] py-2.5 text-primary-600 rounded-tr-full rounded-br-full  px-5 hover:bg-primary-100/25 cursor-pointer hover:text-primary-100"
                 }`}
                 onClick={() => dispatch(changeActiveState(i))}
               >

@@ -6,12 +6,12 @@ import Sidebar from "./components/Sidebar";
 import NewColumn from "./components/NewColumn";
 import AddTask from "./components/AddTask";
 import EditTaskModal from "./components/EditTaskModal";
-import { openSideTaskModal } from "./feature/kanban/kanbanSlice";
 import SmallSideModal from "./components/SmallSideModal";
 import DeleteBoardModal from "./components/DeleteBoardModal";
 import DeleteConfirmationTaskBox from "./components/DeleteConfirmationTaskBox";
 import HeaderModal from "./components/HeaderModal";
 import Board from "./components/Board";
+import EditBoard from "./components/EditBoard";
 
 function App() {
   const {
@@ -23,6 +23,7 @@ function App() {
     isDeleteTask,
     isHeaderModalOpen,
     newBoard,
+    editBoard,
   } = useSelector((state) => state.kanban);
 
   return (
@@ -39,6 +40,7 @@ function App() {
         {isDeleteTask && <DeleteConfirmationTaskBox />}
         {isHeaderModalOpen && <HeaderModal />}
         {newBoard && <Board />}
+        {editBoard && <EditBoard />}
       </Container>
     </main>
   );

@@ -1,12 +1,13 @@
 import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   closeNewBoardModal,
   newBoardData,
 } from "../feature/kanban/kanbanSlice";
 
 function Board() {
+  const { isDarkMode } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   const [boardName, setBoardName] = useState("");
   const [columns, setColumns] = useState([
@@ -43,7 +44,10 @@ function Board() {
       name: boardName.charAt(0).toUpperCase() + boardName.slice(1),
       columns: columns,
     };
-    dispatch(newBoardData(data));
+
+    if (boardName !== "") {
+      dispatch(newBoardData(data));
+    }
   }
   function addColumns(e) {
     e.preventDefault();
@@ -68,9 +72,21 @@ function Board() {
 
   return (
     <main className="fixed inset-0  flex items-center justify-center w-screen h-screen m-auto rounded-md z-50 bg-primary-400/52">
-      <section className="w-[430px] min-h-fit bg-primary-400 rounded-md px-6 py-5 flex flex-col gap-6">
+      <section
+        className={`${
+          isDarkMode
+            ? " w-[430px] min-h-fit flex flex-col gap-6 px-6 py-5  m-auto rounded-md bg-primary-400"
+            : "  w-[430px] min-h-fit flex flex-col gap-6 px-6 py-5  m-auto  rounded-md bg-white"
+        }`}
+      >
         <div className="flex justify-between items-center">
-          <h3 className="font-bold text-white text-[18px] font-plus-jakarta-sans">
+          <h3
+            className={`${
+              isDarkMode
+                ? "text-[18px] font-plus-jakarta-sans font-bold text-white"
+                : "text-[18px] font-plus-jakarta-sans font-bold text-primary-200"
+            }`}
+          >
             Add New Board
           </h3>
           <XMarkIcon
@@ -80,7 +96,13 @@ function Board() {
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex flex-col gap-2 relative">
-            <label className="text-white font-plus-jakarta-sans text-[12px] font-bold">
+            <label
+              className={`${
+                isDarkMode
+                  ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                  : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+              }`}
+            >
               Board Name
             </label>
             <input
@@ -91,9 +113,13 @@ function Board() {
               }}
               className={`${
                 error?.field?.boardName === ""
-                  ? "outline-none text-primary-600 text-[13px] font-plus-jakarta-sans border-secondary-400/25 border-1 rounded-sm h-[40px] px-1 hover:border-primary-100 cursor-pointer"
-                  : "outline-none text-primary-600 text-[13px] font-plus-jakarta-sans border-white/25 border-1 rounded-sm h-[40px] px-1 hover:border-primary-100 cursor-pointer"
-              }`}
+                  ? "outline-none text-primary-600 text-[13px] font-plus-jakarta-sans border-secondary-500 border-1 rounded-sm h-[40px] px-1 hover:border-primary-100 cursor-pointer"
+                  : "outline-none  text-[13px] font-plus-jakarta-sans  border-1 rounded-sm h-[40px] px-1 hover:border-primary-100 cursor-pointer"
+              } ${
+                isDarkMode
+                  ? "bg-transparent border-1 border-gray-400 outline-none  h-[40px] px-2  rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer"
+                  : "bg-transparent border-1 border-gray-400 outline-none  h-[40px] px-2  rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer"
+              } `}
             />
             {error?.field?.boardName === "" && (
               <p className="text-[7px] text-secondary-400 font-plus-jakarta-sans absolute top-13 left-[19.7rem]">
@@ -105,7 +131,11 @@ function Board() {
             <div className="flex flex-col gap-3">
               <label
                 htmlFor="name"
-                className="text-white font-plus-jakarta-sans text-[12px] font-bold"
+                className={`${
+                  isDarkMode
+                    ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                    : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+                }`}
               >
                 Board Columns
               </label>
@@ -124,7 +154,11 @@ function Board() {
                         className={`${
                           error?.field?.columns
                             ? "bg-transparent border-1 border-secondary-400 outline-none w-full  h-[40px] px-2 rounded-sm text-white hover:border-secondary-400 cursor-pointer text-[13px]"
-                            : "bg-transparent border-1 border-gray-400 outline-none w-full  h-[40px] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer text-[13px] capitalize"
+                            : "bg-transparent border-1 border-gray-400 outline-none w-full  h-[40px] px-2 rounded-sm  hover:border-primary-100 cursor-pointer text-[13px] capitalize"
+                        } ${
+                          isDarkMode
+                            ? "bg-transparent border-1 border-gray-400 outline-none  h-[40px] px-2  rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer"
+                            : "bg-transparent border-1 border-gray-400 outline-none  h-[40px] px-2  rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer"
                         }`}
                       />
                       <button onClick={(e) => removeColumns(e, i)}>
@@ -141,7 +175,11 @@ function Board() {
               </div>
               <button
                 onClick={addColumns}
-                className="flex items-center justify-center bg-white rounded-full h-[40px]"
+                className={`${
+                  isDarkMode
+                    ? "bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] h-[40px] font-bold font-plus-jakarta-sans cursor-pointer"
+                    : "bg-primary-100/20 rounded-full flex items-center justify-center text-primary-100 text-[13px] h-[40px] font-bold font-plus-jakarta-sans cursor-pointer"
+                }`}
               >
                 <PlusIcon className="size-4 text-primary-100" />{" "}
                 <h3 className="font-plus-jakarta-sans text-[13px] text-primary-100 font-bold">
@@ -150,9 +188,10 @@ function Board() {
               </button>
             </div>
           )}
+
           <button
             disabled={error.isError}
-            className="text-[13px] font-plus-jakarta-sans font-medium text-white h-[40px] rounded-full bg-primary-100"
+            className="text-[13px] font-plus-jakarta-sans font-medium text-white h-[40px] rounded-full bg-primary-100 disabled:cursor-not-allowed disabled:bg-primary-600"
           >
             Create New Board
           </button>

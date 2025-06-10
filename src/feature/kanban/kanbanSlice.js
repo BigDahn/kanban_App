@@ -16,6 +16,8 @@ const initialState = {
   isDeleteTask: false,
   isHeaderModalOpen: false,
   newBoard: false,
+  editBoard: false,
+  edit_updateBoard: [],
 };
 
 const kanbanSlice = createSlice({
@@ -214,6 +216,27 @@ const kanbanSlice = createSlice({
       state.isDeleteBoard = false;
       state.activeState = state.data.at(0)?.name ?? null;
     },
+    editBoardModal: (state, action) => {
+      state.editBoard = true;
+      state.isHeaderModalOpen = false;
+      state.edit_updateBoard = state.data.filter(
+        (s) => s.name === state.activeState
+      )[0];
+    },
+    updateBoardBtn: (state, action) => {
+      state.editBoard = false;
+      const data = state.data.map((s) => {
+        if (s.name === state.activeState) {
+          return {
+            name: action.payload.name,
+            columns: action.payload.columns,
+          };
+        }
+        return s;
+      });
+      state.data = data;
+      state.activeState = action.payload.name;
+    },
   },
 });
 
@@ -246,6 +269,8 @@ export const {
   newBoardData,
   deleteBoard,
   deleteCurrentTask,
+  editBoardModal,
+  updateBoardBtn,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
 

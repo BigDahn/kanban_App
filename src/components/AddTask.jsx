@@ -110,7 +110,7 @@ function AddTask() {
           <h3
             className={`${
               isDarkMode
-                ? "text-[15px] font-plus-jakarta-sans font-bold text-primary-600"
+                ? "text-[15px] font-plus-jakarta-sans font-bold text-white"
                 : "text-[15px] font-plus-jakarta-sans font-bold text-primary-200"
             }`}
           >
@@ -220,8 +220,8 @@ function AddTask() {
               <button
                 className={`${
                   isDarkMode
-                    ? "bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-bold font-plus-jakarta-sans cursor-pointer"
-                    : "bg-primary-100/20 rounded-full flex items-center justify-center text-primary-100 text-[13px] py-2 font-bold font-plus-jakarta-sans cursor-pointer"
+                    ? "bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] h-[40px] font-bold font-plus-jakarta-sans cursor-pointer"
+                    : "bg-primary-100/20 rounded-full flex items-center justify-center text-primary-100 text-[13px] h-[40px] font-bold font-plus-jakarta-sans cursor-pointer"
                 }`}
                 onClick={() => addmoreSubtasks()}
               >
