@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { EditUpdate } from "../feature/kanban/kanbanSlice";
+import { closeEditTaskModal, EditUpdate } from "../feature/kanban/kanbanSlice";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
 
 function UpdateTaskModal() {
@@ -10,6 +10,7 @@ function UpdateTaskModal() {
   const dispatch = useDispatch();
 
   const { title, description, status, subtasks } = editTask;
+
   const [subtask, setSubtask] = useState(
     subtasks.map((s) => {
       return {
@@ -18,6 +19,7 @@ function UpdateTaskModal() {
       };
     })
   );
+  console.log(subtasks.length === 0);
   const [taskInfo, setTaskInfo] = useState({
     title: title,
     description: description,
@@ -78,7 +80,10 @@ function UpdateTaskModal() {
           <h3 className="text-white font-bold text-[15px] font-plus-jakarta-sans">
             Edit Task
           </h3>
-          <XMarkIcon className="size-4 cursor-pointer hover:text-primary-100 text-primary-600" />
+          <XMarkIcon
+            className="size-4 cursor-pointer hover:text-primary-100 text-primary-600"
+            onClick={() => dispatch(closeEditTaskModal())}
+          />
         </div>
         <section className="flex flex-col gap-4 w-full">
           <div className="flex flex-col gap-2 ">
@@ -113,14 +118,16 @@ function UpdateTaskModal() {
               className="bg-transparent border-1 border-white/25 text-[12px] outline-none  h-[112px] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
             />
           </div>
-          {subtask.length >= 1 && (
+          {
             <div className="flex flex-col gap-2 ">
-              <label
-                htmlFor="title"
-                className="text-[12px] font-plus-jakarta-sans font-bold text-white"
-              >
-                Subtasks
-              </label>
+              {subtask.length >= 1 && (
+                <label
+                  htmlFor="title"
+                  className="text-[12px] font-plus-jakarta-sans font-bold text-white"
+                >
+                  Subtasks
+                </label>
+              )}
               {subtask.map((s, i) => {
                 return (
                   <div
@@ -149,7 +156,7 @@ function UpdateTaskModal() {
                 <PlusIcon className="size-4" /> Add New Subtask
               </button>
             </div>
-          )}
+          }
           <div className="flex flex-col gap-2">
             <label
               htmlFor="status"

@@ -143,11 +143,12 @@ function AddTask() {
               type="text"
               onChange={handleChange}
               className={`${
-                error?.field?.taskInfo?.title === ""
-                  ? "bg-transparent border-1 border-secondary-400  outline-none  w-[20rem] h-[40px] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
-                  : isDarkMode
-                  ? "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white hover:border-primary-100 cursor-pointer"
-                  : "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black hover:border-primary-100 cursor-pointer"
+                isDarkMode
+                  ? "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer"
+                  : "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer"
+              } ${
+                error?.field?.taskInfo?.title === "" &&
+                "bg-transparent border-1 border-secondary-400 text-[13px]  outline-none  w-[20rem] h-[40px] px-2 rounded-sm  hover:border-primary-100 cursor-pointer"
               }`}
             />
             {error?.field?.taskInfo?.title === "" && (
@@ -175,8 +176,8 @@ function AddTask() {
               placeholder="e.g. It’s always good to take a break.This 15 minute break will recharge the batteries a little."
               className={`${
                 isDarkMode
-                  ? "bg-transparent border-1 border-gray-400 text-[12px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
-                  : "bg-transparent border-1 border-gray-400 text-[12px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer"
+                  ? "bg-transparent border-1 border-gray-400 text-[13px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
+                  : "bg-transparent border-1 border-gray-400 text-[13px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer"
               }`}
             />
           </div>
@@ -204,22 +205,15 @@ function AddTask() {
                       required
                       placeholder="e.g tasks that should be done "
                       className={`${
-                        error?.field?.subtasks
-                          ? "bg-transparent border-1 border-secondary-400 outline-none w-full  h-[2rem] px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer placeholder:text-[12px]"
-                          : isDarkMode
-                          ? "bg-transparent border-1 border-gray-400 outline-none w-full  h-[2rem] px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer placeholder:text-[12px]"
-                          : "bg-transparent border-1 border-gray-400 outline-none w-full  h-[2rem] px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer placeholder:text-[12px]"
+                        isDarkMode
+                          ? "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer placeholder:lowercase"
+                          : "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer placeholder:lowercase"
                       }`}
                     />
 
                     <button onClick={() => removeInput(i)}>
                       <XMarkIcon className="size-6 text-gray-600 hover:text-secondary-400 cursor-pointer" />
                     </button>
-                    {error?.field?.subtasks && (
-                      <p className="text-[6.6px] text-secondary-400 font-plus-jakarta-sans absolute top-5 left-[14.7rem]">
-                        {error.msg}
-                      </p>
-                    )}
                   </div>
                 );
               })}{" "}

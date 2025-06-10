@@ -87,7 +87,8 @@ function Main() {
                             </h3>
                             <div className="flex gap-1 text-[12px] text-primary-600 font-medium">
                               <div>
-                                {subtasks.filter((s) => s.isCompleted).length}
+                                {console.log(subtasks)}
+                                {subtasks?.filter((s) => s.isCompleted).length}
                               </div>
                               <p>of</p>
                               <span>{subtasks.length} subtasks</span>
