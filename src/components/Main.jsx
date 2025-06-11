@@ -27,8 +27,8 @@ function Main() {
     <main
       className={`${
         isDarkMode
-          ? "bg-primary-300 px-6 font-plus-jakarta-sans"
-          : "bg-secondary-100 px-6 font-plus-jakarta-sans"
+          ? "bg-primary-300 px-6 font-plus-jakarta-sans overflow-scroll"
+          : "bg-secondary-100 px-6 font-plus-jakarta-sans overflow-scroll"
       }`}
     >
       {columns.length >= 1 ? (

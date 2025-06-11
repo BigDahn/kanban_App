@@ -273,7 +273,3 @@ export const {
   updateBoardBtn,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
-
-/* state.data
-        .filter((s) => s.name === state.activeState)[0]
-        .columns */
