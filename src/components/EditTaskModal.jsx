@@ -79,7 +79,7 @@ function EditTaskModal() {
           onSubmit={handleSubmit}
           className={`${
             isDarkMode
-              ? " max-h-fit md:overflow-x-hidden md:overflow-y-hidden overflow-y-scroll flex flex-col gap-5 items-start max-w-[343px] md:max-w-[30rem] px-[1.3rem] py-4  m-auto rounded-md bg-primary-500"
+              ? " max-h-fit md:overflow-x-hidden md:overflow-y-hidden overflow-y-scroll flex flex-col gap-5 items-start min-w-[343px] md:min-w-[30rem] px-[1.3rem] py-4  m-auto rounded-md bg-primary-500"
               : " max-h-fit flex flex-col gap-5 items-start max-w-[343px] md:max-w-[30rem] px-[1.3rem] py-4  m-auto rounded-md bg-white"
           }`}
         >

@@ -18,7 +18,7 @@ function Header() {
       className={`${
         isDarkMode
           ? "bg-primary-400  flex items-center px-4 md:px-6.5 justify-between"
-          : "bg-white  flex items-center px-6.5 justify-between"
+          : "bg-white  flex items-center px-4 md:px-6.5 justify-between"
       }`}
     >
       <div className="flex justify-center gap-4 md:gap-6 h-full items-center">

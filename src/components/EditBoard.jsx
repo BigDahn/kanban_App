@@ -1,15 +1,16 @@
 import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBoardBtn } from "../feature/kanban/kanbanSlice";
+import {
+  closeEditBoardBtn,
+  updateBoardBtn,
+} from "../feature/kanban/kanbanSlice";
 
 function EditBoard() {
   const { isDarkMode } = useSelector((state) => state.theme);
   const { edit_updateBoard } = useSelector((state) => state.kanban);
   const dispatch = useDispatch();
   const { name, columns } = edit_updateBoard;
-
-  console.log(columns);
 
   const [newcolumns, setNewColumns] = useState(
     columns.map((s) => {
@@ -88,7 +89,7 @@ function EditBoard() {
           </h3>
           <XMarkIcon
             className="size-4 cursor-pointer hover:text-primary-100 text-primary-600"
-            // onClick={() => dispatch(closeEditTaskModal())}
+            onClick={() => dispatch(closeEditBoardBtn())}
           />
         </div>
         <section className="flex flex-col gap-4 w-full">

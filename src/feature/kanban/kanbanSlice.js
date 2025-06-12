@@ -247,6 +247,9 @@ const kanbanSlice = createSlice({
       state.data = data;
       state.activeState = action.payload.name;
     },
+    closeEditBoardBtn: (state) => {
+      state.editBoard = false;
+    },
   },
 });
 
@@ -282,5 +285,6 @@ export const {
   editBoardModal,
   updateBoardBtn,
   open_closeMobileSidebar,
+  closeEditBoardBtn,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;
