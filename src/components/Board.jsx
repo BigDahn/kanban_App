@@ -75,11 +75,11 @@ function Board() {
       <section
         className={`${
           isDarkMode
-            ? " w-[430px] min-h-fit flex flex-col gap-6 px-6 py-5  m-auto rounded-md bg-primary-400"
-            : "  w-[430px] min-h-fit flex flex-col gap-6 px-6 py-5  m-auto  rounded-md bg-white"
+            ? "w-[343px] md:w-[430px] min-h-fit flex flex-col gap-6 px-6 py-5  m-auto rounded-md bg-primary-400"
+            : " w-[343px] md:w-[430px] min-h-fit flex flex-col gap-6 px-6 py-5  m-auto  rounded-md bg-white"
         }`}
       >
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center w-full">
           <h3
             className={`${
               isDarkMode
@@ -94,7 +94,7 @@ function Board() {
             className="size-4 text-primary-600 hover:text-primary-100 cursor-pointer"
           />
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
           <div className="flex flex-col gap-2 relative">
             <label
               className={`${

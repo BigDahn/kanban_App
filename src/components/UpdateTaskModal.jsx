@@ -77,8 +77,8 @@ function UpdateTaskModal() {
         onSubmit={handleSubmit}
         className={`${
           isDarkMode
-            ? " flex flex-col gap-[2rem] items-start px-3 py-4 w-[25rem] min-h-fit m-auto rounded-md z-50 bg-primary-400 shadow-lg shadow-primary-300"
-            : " flex flex-col gap-[2rem] items-start px-3 py-4 w-[25rem] min-h-fit m-auto rounded-md z-50 bg-white shadow-sm "
+            ? " flex flex-col gap-3 md:gap-[2rem] items-start md:overflow-x-hidden md:overflow-y-hidden overflow-x-scroll px-3 py-2 md:py-4 w-[343px] md:w-[25rem] min-h-fit m-auto rounded-md z-50 bg-primary-400 shadow-lg shadow-primary-300"
+            : " flex flex-col gap-3 md:gap-[2rem] md:overflow-x-hidden md:overflow-y-hidden overflow-x-scroll items-start px-3 py-2 md:py-4 w-[343px] md:w-[25rem] min-h-fit m-auto rounded-md z-50 bg-white shadow-sm "
         }`}
       >
         <div className="flex justify-between items-center w-full">
@@ -96,7 +96,7 @@ function UpdateTaskModal() {
             onClick={() => dispatch(closeEditTaskModal())}
           />
         </div>
-        <section className="flex flex-col gap-4 w-full">
+        <section className="flex flex-col gap-2 md:gap-4 w-full">
           <div className="flex flex-col gap-2 ">
             <label
               htmlFor="title"

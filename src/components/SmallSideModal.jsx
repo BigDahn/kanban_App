@@ -13,8 +13,8 @@ function SmallSideModal() {
     <main
       className={`${
         isDarkMode
-          ? "fixed inset-0 flex left-[29rem] bottom-[140px] transition-all  delay-100 w-[126px] h-[70px] shadow-md bg-primary-400/50 m-auto z-[100] "
-          : "fixed inset-0 flex left-[29rem] bottom-[140px] transition-all  delay-100 w-[126px] h-[70px] shadow-md bg-white/50 m-auto z-[100] "
+          ? "fixed inset-0 flex md:left-[29rem] bottom-[140px] transition-all  delay-100 w-[126px] h-[70px] shadow-md bg-primary-400/50 m-auto z-[100] "
+          : "fixed inset-0 flex md:left-[29rem] bottom-[140px] transition-all  delay-100 w-[126px] h-[70px] shadow-md bg-white/50 m-auto z-[100] "
       }`}
     >
       <div

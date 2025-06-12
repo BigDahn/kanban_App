@@ -27,12 +27,12 @@ function Main() {
     <main
       className={`${
         isDarkMode
-          ? "bg-primary-300 px-6 font-plus-jakarta-sans overflow-scroll"
-          : "bg-secondary-100 px-6 font-plus-jakarta-sans overflow-scroll"
+          ? "bg-primary-300 px-4 md:px-6 font-plus-jakarta-sans overflow-scroll"
+          : "bg-secondary-100 px-4 md:px-6 font-plus-jakarta-sans overflow-scroll"
       }`}
     >
       {columns.length >= 1 ? (
-        <section className="flex  gap-[1rem] h-full py-3">
+        <section className="flex  gap-[1rem] justify-between h-full py-3">
           <div className="flex gap-2  ">
             {columns.map((s, i) => {
               const { name, tasks } = s;
@@ -50,12 +50,12 @@ function Main() {
                         })[i]
                       }
                     </div>
-                    <h3 className="leading-[2.4px] text-[14px] text-primary-600 font-bold">
+                    <h3 className="leading-[2.4px] text-[12px] md:text-[14px] text-primary-600 font-bold uppercase">
                       {name} ({tasks.map((s) => s.subtasks).length})
                     </h3>
                   </div>
 
-                  <main className="flex flex-col  w-[250px] gap-2 py-4">
+                  <main className="flex flex-col  w-[250px] gap-4 py-4">
                     {tasks.map((s, i) => {
                       const { title, subtasks } = s;
                       return (

@@ -11,18 +11,20 @@ function HeaderModal() {
   const { isDarkMode } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   return (
-    <main className="fixed inset-0 flex justify-end pt-[4rem] pr-8  transition-all   delay-100  bg-primary-400/50   m-auto z-[100] ">
+    <main
+      className={`${
+        isDarkMode
+          ? "fixed   flex items-start justify-end   w-screen h-[1024px]  rounded-md z-50 bg-black/10 font-plus-jakarta-sans"
+          : "fixed   flex items-start justify-end  w-screen h-[1024px]  rounded-md z-50 bg-gray-400/20 font-plus-jakarta-sans"
+      }`}
+    >
       <div
         className={`${
           isDarkMode
-            ? " transition-all  delay-100 w-[152px] h-[74px] px-2 py-3 flex items-start  min-h-fit rounded-sm shadow-md z-[100] bg-primary-300"
-            : " transition-all  delay-100 w-[152px] h-[74px] px-2 py-3 flex items-start  min-h-fit rounded-sm shadow-md z-[100] bg-white"
+            ? " transition-all relative top-[-6px] md:top-[-10px] delay-100 w-[140px] md:w-[152px] h-[74px] px-2 py-3 flex items-start  min-h-fit rounded-sm shadow-md z-[100] bg-primary-300 mr-2 md:mr-8 "
+            : " transition-all relative top-[-6px] md:top-[-10px]  delay-100 md:w-[152px] h-[74px] px-2 py-3 flex items-start  min-h-fit rounded-sm shadow-md z-[100] bg-white mr-0 md:mr-8"
         }`}
       >
-        <XMarkIcon
-          className="size-3 relative bottom-2 left-31 text-primary-600 hover:text-primary-100 cursor-pointer"
-          onClick={() => dispatch(closeHeaderModal())}
-        />
         <div className="flex flex-col justify-between h-full font-plus-jakarta-sans text-[13px] font-medium leading-[23px]">
           <h3
             onClick={() => dispatch(editBoardModal())}

@@ -79,8 +79,8 @@ function EditTaskModal() {
           onSubmit={handleSubmit}
           className={`${
             isDarkMode
-              ? " max-h-min flex flex-col gap-5 items-start max-w-[30rem] px-[1.3rem] py-4  m-auto rounded-md bg-primary-500"
-              : " max-h-min flex flex-col gap-5 items-start max-w-[30rem] px-[1.3rem] py-4  m-auto rounded-md bg-white"
+              ? " max-h-fit md:overflow-x-hidden md:overflow-y-hidden overflow-y-scroll flex flex-col gap-5 items-start max-w-[343px] md:max-w-[30rem] px-[1.3rem] py-4  m-auto rounded-md bg-primary-500"
+              : " max-h-fit flex flex-col gap-5 items-start max-w-[343px] md:max-w-[30rem] px-[1.3rem] py-4  m-auto rounded-md bg-white"
           }`}
         >
           <section key={title} className="flex flex-col gap-[2rem] w-full">
@@ -97,6 +97,7 @@ function EditTaskModal() {
                 </h3>
                 <EllipsisVerticalIcon
                   onClick={() => dispatch(openSideTaskModal())}
+                  // onClick={() => alert("dhd")}
                   className="size-6 text-primary-600 hover:text-primary-100"
                 />
               </div>

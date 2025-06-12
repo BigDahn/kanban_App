@@ -98,20 +98,20 @@ function AddTask() {
   }
 
   return (
-    <section className="fixed inset-0  flex items-center justify-center w- h-screen m-auto rounded-md z-50 bg-primary-400/52">
+    <section className="fixed inset-0 w-screen flex justify-center items-center  m-auto rounded-md z-50 bg-primary-400/52">
       <div
         className={`${
           isDarkMode
-            ? " max-h-min flex flex-col gap-5 items-start max-w-fit px-[1.3rem] py-4  m-auto rounded-md bg-primary-500"
-            : " max-h-min flex flex-col gap-5 items-start max-w-fit px-[1.3rem] py-4  m-auto rounded-md bg-white"
+            ? "max-h-fit flex overflow-y-scroll flex-col gap-6 md:gap-5 items-start relative top-[10px] md:top-0 md:max-w-fit max-w-[343px] px-[1.3rem] py-4 md:py-4  m-auto rounded-md bg-primary-500 md:overflow-y-hidden"
+            : "max-h-fit flex flex-col gap-6 md:gap-5 items-start  relative top-[10px] md:top-0 max-w-[343px] md:max-w-fit px-[1.3rem] py-4 md:py-4  m-auto rounded-md bg-white"
         }`}
       >
         <div className="flex items-center justify-between w-full ">
           <h3
             className={`${
               isDarkMode
-                ? "text-[15px] font-plus-jakarta-sans font-bold text-white"
-                : "text-[15px] font-plus-jakarta-sans font-bold text-primary-200"
+                ? " text-[18px] md:text-[15px] font-plus-jakarta-sans font-bold text-white"
+                : "md:text-[15px] font-plus-jakarta-sans font-bold text-primary-200"
             }`}
           >
             Add New Task
@@ -126,7 +126,7 @@ function AddTask() {
           className="flex flex-col  gap-5"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <div className="flex flex-col gap-2 relative">
+          <div className="flex flex-col gap-3 md:gap-2 relative">
             <label
               htmlFor="title"
               className={`${
@@ -144,8 +144,8 @@ function AddTask() {
               onChange={handleChange}
               className={`${
                 isDarkMode
-                  ? "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer"
-                  : "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer"
+                  ? "bg-transparent border-1 border-gray-400 outline-none  w-[295px] md:w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer"
+                  : "bg-transparent border-1 border-gray-400 outline-none  w-[295px] md:w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer"
               } ${
                 error?.field?.taskInfo?.title === "" &&
                 "bg-transparent border-1 border-secondary-400 text-[13px]  outline-none  w-[20rem] h-[40px] px-2 rounded-sm  hover:border-primary-100 cursor-pointer"
@@ -157,7 +157,7 @@ function AddTask() {
               </p>
             )}
           </div>
-          <div className="flex flex-col gap-2 relative">
+          <div className="flex flex-col gap-3 md:gap-2 relative">
             <label
               htmlFor="description"
               className={`${
@@ -176,60 +176,62 @@ function AddTask() {
               placeholder="e.g. It’s always good to take a break.This 15 minute break will recharge the batteries a little."
               className={`${
                 isDarkMode
-                  ? "bg-transparent border-1 border-gray-400 text-[13px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
-                  : "bg-transparent border-1 border-gray-400 text-[13px] outline-none  w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer"
+                  ? "bg-transparent border-1 border-gray-400 text-[13px] outline-none w-[295px] md:w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-white hover:border-primary-100 cursor-pointer"
+                  : "bg-transparent border-1 border-gray-400 text-[13px] outline-none w-[295px] md:w-[20rem] h-[6rem] py-1 flex items-start justify-start px-2 rounded-sm text-black hover:border-primary-100 cursor-pointer"
               }`}
             />
           </div>
-          {subtasks.length >= 1 && (
-            <div className="flex flex-col gap-2 ">
-              <label
-                htmlFor="title"
-                className={`${
-                  isDarkMode
-                    ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
-                    : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
-                }`}
-              >
-                Subtasks
-              </label>
-              {subtasks.map((s, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="w-[20rem] flex items-center justify-start relative"
-                  >
-                    <input
-                      onChange={(e) => subTasks(e, i)}
-                      name="title"
-                      required
-                      placeholder="e.g tasks that should be done "
-                      className={`${
-                        isDarkMode
-                          ? "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer placeholder:lowercase"
-                          : "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer placeholder:lowercase"
-                      }`}
-                    />
+          <div className="w-[295px] md:w-full">
+            {subtasks.length >= 1 && (
+              <div className="flex flex-col gap-3 md:gap-2 ">
+                <label
+                  htmlFor="title"
+                  className={`${
+                    isDarkMode
+                      ? "text-[12px] font-plus-jakarta-sans font-bold text-white"
+                      : "text-[12px] font-plus-jakarta-sans font-bold text-primary-600"
+                  }`}
+                >
+                  Subtasks
+                </label>
+                {subtasks.map((s, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className=" w-[295px] md:w-[20rem] flex items-center justify-start relative"
+                    >
+                      <input
+                        onChange={(e) => subTasks(e, i)}
+                        name="title"
+                        required
+                        placeholder="e.g tasks that should be done "
+                        className={`${
+                          isDarkMode
+                            ? "bg-transparent border-1 border-gray-400 outline-none w-[295px] md:w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer placeholder:lowercase"
+                            : "bg-transparent border-1 border-gray-400 outline-none w-[295px]  md:w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer placeholder:lowercase"
+                        }`}
+                      />
 
-                    <button onClick={() => removeInput(i)}>
-                      <XMarkIcon className="size-6 text-gray-600 hover:text-secondary-400 cursor-pointer" />
-                    </button>
-                  </div>
-                );
-              })}{" "}
-              <button
-                className={`${
-                  isDarkMode
-                    ? "bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] h-[40px] font-bold font-plus-jakarta-sans cursor-pointer"
-                    : "bg-primary-100/20 rounded-full flex items-center justify-center text-primary-100 text-[13px] h-[40px] font-bold font-plus-jakarta-sans cursor-pointer"
-                }`}
-                onClick={() => addmoreSubtasks()}
-              >
-                <PlusIcon className="size-4" /> Add New Subtask
-              </button>
-            </div>
-          )}
-          <div className="flex flex-col gap-2">
+                      <button onClick={() => removeInput(i)}>
+                        <XMarkIcon className="size-6 text-gray-600 hover:text-secondary-400 cursor-pointer" />
+                      </button>
+                    </div>
+                  );
+                })}{" "}
+                <button
+                  className={`${
+                    isDarkMode
+                      ? "bg-white rounded-full flex items-center justify-center text-primary-100 text-[13px] h-[40px] font-bold font-plus-jakarta-sans cursor-pointer"
+                      : "bg-primary-100/20 rounded-full flex items-center justify-center text-primary-100 text-[13px] h-[40px] font-bold font-plus-jakarta-sans cursor-pointer"
+                  }`}
+                  onClick={() => addmoreSubtasks()}
+                >
+                  <PlusIcon className="size-4" /> Add New Subtask
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col gap-2 w-[295px] md:w-full">
             <label
               className={`${
                 isDarkMode

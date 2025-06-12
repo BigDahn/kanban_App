@@ -12,6 +12,7 @@ import DeleteConfirmationTaskBox from "./components/DeleteConfirmationTaskBox";
 import HeaderModal from "./components/HeaderModal";
 import Board from "./components/Board";
 import EditBoard from "./components/EditBoard";
+import MobileSideBar from "./components/MobileSideBar";
 
 function App() {
   const {
@@ -24,10 +25,11 @@ function App() {
     isHeaderModalOpen,
     newBoard,
     editBoard,
+    mobileSidebar,
   } = useSelector((state) => state.kanban);
 
   return (
-    <main className="grid h-screen  m-auto box-border grid-rows-[80px_auto] overflow-hidden ">
+    <main className="grid h-screen  m-auto box-border grid-rows-[64px_auto] md:grid-rows-[80px_auto] overflow-hidden ">
       <Header />
       <Container>
         <Sidebar />
@@ -41,6 +43,7 @@ function App() {
         {isHeaderModalOpen && <HeaderModal />}
         {newBoard && <Board />}
         {editBoard && <EditBoard />}
+        {mobileSidebar && <MobileSideBar />}
       </Container>
     </main>
   );

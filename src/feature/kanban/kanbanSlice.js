@@ -18,14 +18,20 @@ const initialState = {
   newBoard: false,
   editBoard: false,
   edit_updateBoard: [],
+  mobileSidebar: false,
 };
 
 const kanbanSlice = createSlice({
   name: "kanban",
   initialState,
   reducers: {
+    open_closeMobileSidebar: (state) => {
+      state.mobileSidebar = !state.mobileSidebar;
+      state.isHeaderModalOpen = false;
+    },
     changeActiveState: (state, action) => {
       state.activeState = state.data.at(action.payload).name;
+      state.mobileSidebar = false;
     },
     newColumn: (state) => {
       state.addColumnModal = true;
@@ -46,6 +52,8 @@ const kanbanSlice = createSlice({
     },
     addNewTaskBtn: (state) => {
       state.addNewTask = true;
+      state.mobileSidebar = false;
+      state.isHeaderModalOpen = false;
     },
     closeAddNewTaskModal: (state) => {
       state.addNewTask = false;
@@ -186,7 +194,8 @@ const kanbanSlice = createSlice({
       state.data = data;
     },
     openHeaderModal: (state) => {
-      state.isHeaderModalOpen = true;
+      state.isHeaderModalOpen = !state.isHeaderModalOpen;
+      state.mobileSidebar = false;
     },
     closeHeaderModal: (state) => {
       state.isHeaderModalOpen = false;
@@ -200,6 +209,7 @@ const kanbanSlice = createSlice({
     },
     createNewBoard: (state) => {
       state.newBoard = true;
+      state.mobileSidebar = false;
     },
     closeNewBoardModal: (state) => {
       state.newBoard = false;
@@ -271,5 +281,6 @@ export const {
   deleteCurrentTask,
   editBoardModal,
   updateBoardBtn,
+  open_closeMobileSidebar,
 } = kanbanSlice.actions;
 export default kanbanSlice.reducer;

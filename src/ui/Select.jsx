@@ -10,8 +10,8 @@ function Select({ onChange, error }) {
       onChange={onChange}
       className={`${
         isDarkMode
-          ? "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer"
-          : "bg-transparent border-1 border-gray-400 outline-none  w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer"
+          ? "bg-transparent border-1 border-gray-400 outline-none w-[295px] md:w-[20rem] h-[40px] px-2 capitalize rounded-sm text-white text-[13px] hover:border-primary-100 cursor-pointer"
+          : "bg-transparent border-1 border-gray-400 outline-none w-[295px] md:w-[20rem] h-[40px] px-2 capitalize rounded-sm text-black text-[13px] hover:border-primary-100 cursor-pointer"
       } ${
         error === "" &&
         "bg-transparent border-1 border-secondary-400 text-[13px]  outline-none  w-[20rem] h-[40px] px-2 rounded-sm  hover:border-primary-100 cursor-pointer"
