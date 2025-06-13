@@ -19,6 +19,7 @@ const initialState = {
   editBoard: false,
   edit_updateBoard: [],
   mobileSidebar: false,
+  sideModalPosition: [],
 };
 
 const kanbanSlice = createSlice({
@@ -71,8 +72,12 @@ const kanbanSlice = createSlice({
       state.isEdit = false;
       state.sideTaskModal = false;
     },
-    openSideTaskModal: (state) => {
-      state.sideTaskModal = true;
+    openSideTaskModal: (state, action) => {
+      state.sideTaskModal = !state.sideTaskModal;
+      state.sideModalPosition = {
+        x: action.payload.x,
+        y: action.payload.y,
+      };
     },
     editTaskOn: (state) => {
       state.isEdit = true;

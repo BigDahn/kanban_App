@@ -50,7 +50,7 @@ function Main() {
                         })[i]
                       }
                     </div>
-                    <h3 className="leading-[2.4px] text-[12px] md:text-[14px] text-primary-600 font-bold uppercase">
+                    <h3 className="tracking-[2.4px]  text-[12px] md:text-[14px] text-primary-600 font-bold uppercase">
                       {name} ({tasks.map((s) => s.subtasks).length})
                     </h3>
                   </div>
@@ -69,9 +69,9 @@ function Main() {
                           onMouseLeave={() => setIndex("")}
                           key={i}
                           role="button"
-                          onClick={() =>
-                            dispatch(openEditTaskModal({ name, title }))
-                          }
+                          onClick={() => {
+                            dispatch(openEditTaskModal({ name, title }));
+                          }}
                         >
                           <main className="flex flex-col gap-[0.2rem]">
                             <h3

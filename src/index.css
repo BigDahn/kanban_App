@@ -35,3 +35,24 @@
 @theme {
     --font-plus-jakarta-sans: "Plus Jakarta Sans", sans serif  
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #2B2C37;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #2B2C37;
+    border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #635FC7;
+}
