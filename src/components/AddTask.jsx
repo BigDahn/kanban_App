@@ -3,13 +3,11 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import Select from "../ui/Select";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addNewTask,
-  closeAddNewTaskModal,
-} from "../feature/kanban/kanbanSlice";
+import { closeAddNewTaskModal } from "../feature/kanban/kanbanSlice";
 
 function AddTask() {
   const { isDarkMode } = useSelector((state) => state.theme);
+
   const dispatch = useDispatch();
   const [subtasks, setSubTasks] = useState([
     {
@@ -98,11 +96,11 @@ function AddTask() {
   }
 
   return (
-    <section className="fixed inset-0 w-screen flex justify-center items-center  m-auto rounded-md z-50 bg-primary-400/52">
+    <section className="fixed  inset-0 w-screen flex justify-center items-center  m-auto rounded-md z-50 bg-primary-400/52">
       <div
         className={`${
           isDarkMode
-            ? "max-h-fit flex overflow-y-scroll flex-col gap-6 md:gap-5 items-start relative top-[10px] md:top-0 md:max-w-fit max-w-[343px] px-[1.3rem] py-4 md:py-4  m-auto rounded-md bg-primary-500 md:overflow-y-hidden"
+            ? "max-h-fit  flex overflow-y-scroll flex-col gap-6 md:gap-5 items-start relative top-[10px] md:top-0 md:max-w-fit max-w-[343px] px-[1.3rem] py-4 md:py-4  m-auto rounded-md bg-primary-500 md:overflow-y-hidden "
             : "max-h-fit flex flex-col gap-6 md:gap-5 items-start  relative top-[10px] md:top-0 max-w-[343px] md:max-w-fit px-[1.3rem] py-4 md:py-4  m-auto rounded-md bg-white"
         }`}
       >

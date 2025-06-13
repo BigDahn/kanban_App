@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { newColumn, openEditTaskModal } from "../feature/kanban/kanbanSlice";
 import EmptyBoard from "./EmptyBoard";
+import NoCurrentBoard from "./NoCurrentBoard";
 
 function Main() {
   const [index, setIndex] = useState();
@@ -11,7 +12,10 @@ function Main() {
 
   const dispatch = useDispatch();
 
-  const { columns } = data.filter((s) => s.name === activeState)[0];
+  console.log(activeState);
+
+  const getAvailableColumn =
+    activeState === null ? null : data.filter((s) => s.name === activeState)[0];
 
   const colors = [
     { name: "bg-[#49C4E5]" },
@@ -31,10 +35,12 @@ function Main() {
           : "bg-secondary-100 px-4 md:px-6 font-plus-jakarta-sans overflow-scroll"
       }`}
     >
-      {columns.length >= 1 ? (
+      {activeState === null ? (
+        <NoCurrentBoard />
+      ) : getAvailableColumn.columns.length >= 1 ? (
         <section className="flex  gap-[1rem] justify-between h-full py-3">
           <div className="flex gap-2  ">
-            {columns.map((s, i) => {
+            {getAvailableColumn.columns.map((s, i) => {
               const { name, tasks } = s;
               return (
                 <article key={i} className=" px-2 py-3">

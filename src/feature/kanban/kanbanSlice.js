@@ -3,7 +3,7 @@ import { boards } from "../../../data.json";
 
 const initialState = {
   data: boards,
-  activeState: boards.at(0).name,
+  activeState: boards.at(0).name ?? null,
   addColumnModal: false,
   addNewTask: false,
   editTaskModal: false,
@@ -224,6 +224,7 @@ const kanbanSlice = createSlice({
       const data = [...state.data, action.payload];
 
       state.data = data;
+      state.activeState = state.data.at(0).name;
     },
     deleteBoard: (state) => {
       const data = state.data.filter((s) => s.name !== state.activeState);
