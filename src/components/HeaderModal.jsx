@@ -2,7 +2,6 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  closeHeaderModal,
   editBoardModal,
   isDeleteBoardBtn,
 } from "../feature/kanban/kanbanSlice";
@@ -14,8 +13,8 @@ function HeaderModal() {
     <main
       className={`${
         isDarkMode
-          ? "fixed   flex items-start justify-end   w-screen h-[1024px]  rounded-md z-50 bg-black/10 font-plus-jakarta-sans"
-          : "fixed   flex items-start justify-end  w-screen h-[1024px]  rounded-md z-50 bg-gray-400/20 font-plus-jakarta-sans"
+          ? "fixed left-0  flex items-start justify-end   min-w-screen h-[1024px]  rounded-md z-50 bg-black/10 font-plus-jakarta-sans"
+          : "fixed left-0  flex items-start justify-end  min-w-screen h-[1024px]  rounded-md z-50 bg-gray-400/20 font-plus-jakarta-sans"
       }`}
     >
       <div
